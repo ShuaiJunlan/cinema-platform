@@ -13,6 +13,9 @@
         <module>consumer</module>
         <module>api</module>
         <module>user-manage</module>
+        <module>movie-manage</module>
+        <module>cinema-manage</module>
+        <module>orders-manage</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
