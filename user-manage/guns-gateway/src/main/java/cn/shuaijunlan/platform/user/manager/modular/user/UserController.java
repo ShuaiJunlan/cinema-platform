@@ -2,7 +2,7 @@ package cn.shuaijunlan.platform.user.manager.modular.user;
 
 import cn.shuaijunlan.platform.user.manager.modular.vo.ResponseVO;
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.stylefeng.guns.api.user.UserAPI;
+import com.stylefeng.guns.api.user.IUserService;
 import com.stylefeng.guns.api.user.vo.UserInfoModel;
 import com.stylefeng.guns.api.user.vo.UserModel;
 import cn.shuaijunlan.platform.user.manager.common.CurrentUser;
@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class UserController {
 
-    @Reference(interfaceClass = UserAPI.class, check = false)
-    private UserAPI userAPI;
+    @Reference(interfaceClass = IUserService.class, check = false)
+    private IUserService IUserService;
 
 
     @RequestMapping(value = "register", method = RequestMethod.POST)
@@ -27,7 +27,7 @@ public class UserController {
             return ResponseVO.serviceFail("密码不能为空");
         }
 
-        boolean isSuccess = userAPI.register(userModel);
+        boolean isSuccess = IUserService.register(userModel);
         if (isSuccess) {
             return ResponseVO.success("注册成功");
         } else {
@@ -39,7 +39,7 @@ public class UserController {
     public ResponseVO check(String username) {
         if (username != null && username.trim().length() > 0) {
             // 当返回true的时候，表示用户名可用
-            boolean notExists = userAPI.checkUsername(username);
+            boolean notExists = IUserService.checkUsername(username);
             if (notExists) {
                 return ResponseVO.success("用户名不存在");
             } else {
@@ -77,7 +77,7 @@ public class UserController {
         if (userId != null && userId.trim().length() > 0) {
             // 将用户ID传入后端进行查询
             int uuid = Integer.parseInt(userId);
-            UserInfoModel userInfo = userAPI.getUserInfo(uuid);
+            UserInfoModel userInfo = IUserService.getUserInfo(uuid);
             if (userInfo != null) {
                 return ResponseVO.success(userInfo);
             } else {
@@ -100,7 +100,7 @@ public class UserController {
                 return ResponseVO.serviceFail("请修改您个人的信息");
             }
 
-            UserInfoModel userInfo = userAPI.updateUserInfo(userInfoModel);
+            UserInfoModel userInfo = IUserService.updateUserInfo(userInfoModel);
             if (userInfo != null) {
                 return ResponseVO.success(userInfo);
             } else {

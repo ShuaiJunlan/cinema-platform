@@ -3,7 +3,7 @@ package cn.shuaijunlan.platform.user.manager.modular.auth.controller;
 import cn.shuaijunlan.platform.user.manager.modular.auth.util.JwtTokenUtil;
 import cn.shuaijunlan.platform.user.manager.modular.vo.ResponseVO;
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.stylefeng.guns.api.user.UserAPI;
+import com.stylefeng.guns.api.user.IUserService;
 import cn.shuaijunlan.platform.user.manager.modular.auth.controller.dto.AuthRequest;
 import cn.shuaijunlan.platform.user.manager.modular.auth.controller.dto.AuthResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,15 +22,15 @@ public class AuthController {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
-    @Reference(interfaceClass = UserAPI.class, check = false)
-    private UserAPI userAPI;
+    @Reference(interfaceClass = IUserService.class, check = false)
+    private IUserService IUserService;
 
     @RequestMapping(value = "${jwt.auth-path}")
     public ResponseVO createAuthenticationToken(AuthRequest authRequest) {
 
         boolean validate = true;
         // 去掉guns自身携带的用户名密码验证机制，使用我们自己的
-        int userId = userAPI.login(authRequest.getUserName(), authRequest.getPassword());
+        int userId = IUserService.login(authRequest.getUserName(), authRequest.getPassword());
         if (userId == 0) {
             validate = false;
         }

@@ -3,7 +3,7 @@ package cn.shuaijunlan.platform.user.manager.modular.user;
 import cn.shuaijunlan.platform.user.manager.persistence.dao.repository.UserTRepository;
 import cn.shuaijunlan.platform.user.manager.persistence.model.UserTModel;
 import com.alibaba.dubbo.config.annotation.Service;
-import com.stylefeng.guns.api.user.UserAPI;
+import com.stylefeng.guns.api.user.IUserService;
 import com.stylefeng.guns.api.user.vo.UserInfoModel;
 import com.stylefeng.guns.api.user.vo.UserModel;
 import com.stylefeng.guns.core.util.MD5Util;
@@ -17,8 +17,8 @@ import java.util.Optional;
  * @author shuaijunlan
  */
 @Component
-@Service(interfaceClass = UserAPI.class, loadbalance = "roundrobin")
-public class UserServiceImpl implements UserAPI {
+@Service(interfaceClass = IUserService.class, loadbalance = "roundrobin")
+public class UserServiceImpl implements IUserService {
 
     @Autowired
     private UserTRepository userTRepository;

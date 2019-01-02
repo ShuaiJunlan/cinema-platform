@@ -6,7 +6,7 @@ import com.stylefeng.guns.api.user.vo.UserModel;
 /**
  * @author shuaijunlan
  */
-public interface UserAPI {
+public interface IUserService {
 
     int login(String username, String password);
 
