@@ -1,7 +1,7 @@
 package cn.shuaijunlan.platform.user.manager.modular.auth.util;
 
-import com.stylefeng.guns.core.util.ToolUtil;
 import cn.shuaijunlan.platform.user.manager.config.properties.JwtProperties;
+import com.stylefeng.guns.core.util.ToolUtil;
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

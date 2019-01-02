@@ -10,12 +10,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * @author shuaijunlan
+ */
 @RequestMapping("/user/")
 @RestController
 public class UserController {
 
     @Reference(interfaceClass = IUserService.class, check = false)
-    private IUserService IUserService;
+    private IUserService userService;
 
 
     @RequestMapping(value = "register", method = RequestMethod.POST)
@@ -27,7 +30,7 @@ public class UserController {
             return ResponseVO.serviceFail("密码不能为空");
         }
 
-        boolean isSuccess = IUserService.register(userModel);
+        boolean isSuccess = userService.register(userModel);
         if (isSuccess) {
             return ResponseVO.success("注册成功");
         } else {
@@ -39,7 +42,7 @@ public class UserController {
     public ResponseVO check(String username) {
         if (username != null && username.trim().length() > 0) {
             // 当返回true的时候，表示用户名可用
-            boolean notExists = IUserService.checkUsername(username);
+            boolean notExists = userService.checkUsername(username);
             if (notExists) {
                 return ResponseVO.success("用户名不存在");
             } else {
@@ -77,7 +80,7 @@ public class UserController {
         if (userId != null && userId.trim().length() > 0) {
             // 将用户ID传入后端进行查询
             int uuid = Integer.parseInt(userId);
-            UserInfoModel userInfo = IUserService.getUserInfo(uuid);
+            UserInfoModel userInfo = userService.getUserInfo(uuid);
             if (userInfo != null) {
                 return ResponseVO.success(userInfo);
             } else {
@@ -100,7 +103,7 @@ public class UserController {
                 return ResponseVO.serviceFail("请修改您个人的信息");
             }
 
-            UserInfoModel userInfo = IUserService.updateUserInfo(userInfoModel);
+            UserInfoModel userInfo = userService.updateUserInfo(userInfoModel);
             if (userInfo != null) {
                 return ResponseVO.success(userInfo);
             } else {

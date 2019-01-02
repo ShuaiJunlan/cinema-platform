@@ -60,15 +60,8 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public boolean checkUsername(String username) {
-        // EntityWrapper<MoocUserT> entityWrapper = new EntityWrapper<>();
-        // entityWrapper.eq("user_name",username);
         UserTModel result = userTRepository.findUserTModelByUserName(username);
-        // if(result!=null && result>0){
-        //     return false;
-        // }else{
-        //     return true;
-        // }
-        return result != null;
+        return result == null;
     }
 
     private UserInfoModel do2UserInfo(UserTModel moocUserT) {

@@ -1,8 +1,6 @@
 package cn.shuaijunlan.platform.user.manager.modular.auth.validator.impl;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import cn.shuaijunlan.platform.user.manager.persistence.dao.UserMapper;
-import cn.shuaijunlan.platform.user.manager.persistence.model.User;
 import cn.shuaijunlan.platform.user.manager.modular.auth.validator.IReqValidator;
 import cn.shuaijunlan.platform.user.manager.modular.auth.validator.dto.Credence;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,16 +17,17 @@ import java.util.List;
 @Service
 public class DbValidator implements IReqValidator {
 
-    @Autowired
-    UserMapper userMapper;
+    // @Autowired
+    // UserMapper userMapper;
 
     @Override
     public boolean validate(Credence credence) {
-        List<User> users = userMapper.selectList(new EntityWrapper<User>().eq("userName", credence.getCredenceName()));
-        if (users != null && users.size() > 0) {
-            return true;
-        } else {
-            return false;
-        }
+        // List<User> users = userMapper.selectList(new EntityWrapper<User>().eq("userName", credence.getCredenceName()));
+        // if (users != null && users.size() > 0) {
+        //     return true;
+        // } else {
+        //     return false;
+        // }
+        return true;
     }
 }
