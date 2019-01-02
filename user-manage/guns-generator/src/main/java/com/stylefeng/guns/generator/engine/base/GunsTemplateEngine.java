@@ -1,7 +1,6 @@
 package com.stylefeng.guns.generator.engine.base;
 
 import com.stylefeng.guns.core.util.ToolUtil;
-import com.sun.javafx.PlatformUtil;
 import org.beetl.core.Configuration;
 import org.beetl.core.GroupTemplate;
 import org.beetl.core.Template;
@@ -54,31 +53,31 @@ public abstract class GunsTemplateEngine extends AbstractTemplateEngine {
     }
 
     protected void generateFile(String template, String filePath) {
-        Template pageTemplate = groupTemplate.getTemplate(template);
-        configTemplate(pageTemplate);
-        if (PlatformUtil.isWindows()) {
-            filePath = filePath.replaceAll("/+|\\\\+", "\\\\");
-        } else {
-            filePath = filePath.replaceAll("/+|\\\\+", "/");
-        }
-        File file = new File(filePath);
-        File parentFile = file.getParentFile();
-        if (!parentFile.exists()) {
-            parentFile.mkdirs();
-        }
-        FileOutputStream fileOutputStream = null;
-        try {
-            fileOutputStream = new FileOutputStream(file);
-            pageTemplate.renderTo(fileOutputStream);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                fileOutputStream.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        // Template pageTemplate = groupTemplate.getTemplate(template);
+        // configTemplate(pageTemplate);
+        // if (PlatformUtil.isWindows()) {
+        //     filePath = filePath.replaceAll("/+|\\\\+", "\\\\");
+        // } else {
+        //     filePath = filePath.replaceAll("/+|\\\\+", "/");
+        // }
+        // File file = new File(filePath);
+        // File parentFile = file.getParentFile();
+        // if (!parentFile.exists()) {
+        //     parentFile.mkdirs();
+        // }
+        // FileOutputStream fileOutputStream = null;
+        // try {
+        //     fileOutputStream = new FileOutputStream(file);
+        //     pageTemplate.renderTo(fileOutputStream);
+        // } catch (FileNotFoundException e) {
+        //     e.printStackTrace();
+        // } finally {
+        //     try {
+        //         fileOutputStream.close();
+        //     } catch (IOException e) {
+        //         e.printStackTrace();
+        //     }
+        // }
     }
 
     public void start() {

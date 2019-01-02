@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS user_info;
 CREATE TABLE user_info(
    UUID INT PRIMARY KEY AUTO_INCREMENT COMMENT '主键编号',
-   user_name VARCHAR(50) COMMENT '用户账号',
+   user_name VARCHAR(50) UNIQUE COMMENT '用户账号',
    user_pwd VARCHAR(50) COMMENT '用户密码',
    nick_name VARCHAR(50) COMMENT '用户昵称',
    user_sex INT COMMENT '用户性别 0-男，1-女',

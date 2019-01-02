@@ -13,7 +13,7 @@ public interface UserTRepository extends JpaRepository<UserTModel, Integer> {
 
     /**
      * @param username username
-     * @return
+     * @return userTModel
      */
     UserTModel findUserTModelByUserName(String username);
 }

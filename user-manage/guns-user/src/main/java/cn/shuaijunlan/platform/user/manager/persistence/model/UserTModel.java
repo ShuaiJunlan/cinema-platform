@@ -21,7 +21,7 @@ public class UserTModel implements Serializable {
      * 主键编号
      */
     @Id
-    private Integer uuid;
+    private int uuid;
     /**
      * 用户账号
      */

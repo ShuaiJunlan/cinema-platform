@@ -10,6 +10,8 @@ import com.stylefeng.guns.core.util.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 
 /**
  * @author shuaijunlan
@@ -24,19 +26,19 @@ public class UserServiceImpl implements UserAPI {
     @Override
     public boolean register(UserModel userModel) {
         // 将注册信息实体转换为数据实体[mooc_user_t]
-        UserTModel moocUserT = new UserTModel();
-        moocUserT.setUserName(userModel.getUsername());
-        moocUserT.setEmail(userModel.getEmail());
-        moocUserT.setAddress(userModel.getAddress());
-        moocUserT.setUserPhone(userModel.getPhone());
+        UserTModel userTModel = new UserTModel();
+        userTModel.setUserName(userModel.getUsername());
+        userTModel.setEmail(userModel.getEmail());
+        userTModel.setAddress(userModel.getAddress());
+        userTModel.setUserPhone(userModel.getPhone());
         // 创建时间和修改时间 -> current_timestamp
 
         // 数据加密 【MD5混淆加密 + 盐值 -> Shiro加密】
         String md5Password = MD5Util.encrypt(userModel.getPassword());
-        moocUserT.setUserPwd(md5Password); // 注意
+        userTModel.setUserPwd(md5Password); // 注意
 
         // 将数据实体存入数据库
-        UserTModel insert = userTRepository.save(moocUserT);
+        UserTModel insert = userTRepository.save(userTModel);
         return insert != null;
     }
 
@@ -92,7 +94,8 @@ public class UserServiceImpl implements UserAPI {
     @Override
     public UserInfoModel getUserInfo(int uuid) {
         // 根据主键查询用户信息 [MoocUserT]
-        UserTModel moocUserT = userTRepository.getOne(uuid);
+        Optional<UserTModel> optionalUserTModel = userTRepository.findById(uuid);
+        UserTModel moocUserT = optionalUserTModel.orElse(null);
         // 将MoocUserT转换UserInfoModel
         // 返回UserInfoModel
         return do2UserInfo(moocUserT);
@@ -101,25 +104,25 @@ public class UserServiceImpl implements UserAPI {
     @Override
     public UserInfoModel updateUserInfo(UserInfoModel userInfoModel) {
         // 将传入的参数转换为DO 【MoocUserT】
-        UserTModel moocUserT = new UserTModel();
-        moocUserT.setUuid(userInfoModel.getUuid());
-        moocUserT.setNickName(userInfoModel.getNickname());
-        moocUserT.setLifeState(Integer.parseInt(userInfoModel.getLifeState()));
-        moocUserT.setBirthday(userInfoModel.getBirthday());
-        moocUserT.setBiography(userInfoModel.getBiography());
-        moocUserT.setBeginTime(null);
-        moocUserT.setHeadUrl(userInfoModel.getHeadAddress());
-        moocUserT.setEmail(userInfoModel.getEmail());
-        moocUserT.setAddress(userInfoModel.getAddress());
-        moocUserT.setUserPhone(userInfoModel.getPhone());
-        moocUserT.setUserSex(userInfoModel.getSex());
-        moocUserT.setUpdateTime(null);
+        UserTModel userTModel = new UserTModel();
+        userTModel.setUuid(userInfoModel.getUuid());
+        userTModel.setNickName(userInfoModel.getNickname());
+        userTModel.setLifeState(Integer.parseInt(userInfoModel.getLifeState()));
+        userTModel.setBirthday(userInfoModel.getBirthday());
+        userTModel.setBiography(userInfoModel.getBiography());
+        userTModel.setBeginTime(null);
+        userTModel.setHeadUrl(userInfoModel.getHeadAddress());
+        userTModel.setEmail(userInfoModel.getEmail());
+        userTModel.setAddress(userInfoModel.getAddress());
+        userTModel.setUserPhone(userInfoModel.getPhone());
+        userTModel.setUserSex(userInfoModel.getSex());
+        userTModel.setUpdateTime(null);
 
         // DO存入数据库
-        UserTModel integer = userTRepository.save(moocUserT);
+        UserTModel integer = userTRepository.save(userTModel);
         // if(integer>0){
         //     // 将数据从数据库中读取出来
-            UserInfoModel userInfo = getUserInfo(moocUserT.getUuid());
+            UserInfoModel userInfo = getUserInfo(userTModel.getUuid());
         //     // 将结果返回给前端
         //     return userInfo;
         // }else{

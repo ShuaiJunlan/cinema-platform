@@ -1,8 +1,10 @@
 package cn.shuaijunlan.platform.user.manager.persistence.dao.repository;
 
-import cn.shuaijunlan.platform.user.manager.persistence.model.UserModel;
+import com.stylefeng.guns.api.user.vo.UserModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * @author Shuai Junlan[shuaijunlan@gmail.com].
@@ -10,4 +12,9 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface UserRepository extends JpaRepository<UserModel, Integer> {
+    /**
+     * @param username
+     * @return
+     */
+    List<UserModel> findAllByUserName(String username);
 }
