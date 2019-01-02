@@ -1,0 +1,132 @@
+package cn.shuaijunlan.platform.user.manager.modular.user;
+
+import cn.shuaijunlan.platform.user.manager.persistence.dao.repository.UserTRepository;
+import cn.shuaijunlan.platform.user.manager.persistence.model.UserTModel;
+import com.alibaba.dubbo.config.annotation.Service;
+import com.stylefeng.guns.api.user.UserAPI;
+import com.stylefeng.guns.api.user.vo.UserInfoModel;
+import com.stylefeng.guns.api.user.vo.UserModel;
+import com.stylefeng.guns.core.util.MD5Util;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+
+/**
+ * @author shuaijunlan
+ */
+@Component
+@Service(interfaceClass = UserAPI.class, loadbalance = "roundrobin")
+public class UserServiceImpl implements UserAPI {
+
+    @Autowired
+    private UserTRepository userTRepository;
+
+    @Override
+    public boolean register(UserModel userModel) {
+        // 将注册信息实体转换为数据实体[mooc_user_t]
+        UserTModel moocUserT = new UserTModel();
+        moocUserT.setUserName(userModel.getUsername());
+        moocUserT.setEmail(userModel.getEmail());
+        moocUserT.setAddress(userModel.getAddress());
+        moocUserT.setUserPhone(userModel.getPhone());
+        // 创建时间和修改时间 -> current_timestamp
+
+        // 数据加密 【MD5混淆加密 + 盐值 -> Shiro加密】
+        String md5Password = MD5Util.encrypt(userModel.getPassword());
+        moocUserT.setUserPwd(md5Password); // 注意
+
+        // 将数据实体存入数据库
+        UserTModel insert = userTRepository.save(moocUserT);
+        return insert != null;
+    }
+
+
+    @Override
+    public int login(String username, String password) {
+        // 根据登陆账号获取数据库信息
+        UserTModel result = userTRepository.findUserTModelByUserName(username);
+
+        // 获取到的结果，然后与加密以后的密码做匹配
+        if (result != null && result.getUuid() > 0) {
+            String md5Password = MD5Util.encrypt(password);
+            if (result.getUserPwd().equals(md5Password)) {
+                return result.getUuid();
+            }
+        }
+        return 0;
+    }
+
+    @Override
+    public boolean checkUsername(String username) {
+        // EntityWrapper<MoocUserT> entityWrapper = new EntityWrapper<>();
+        // entityWrapper.eq("user_name",username);
+        UserTModel result = userTRepository.findUserTModelByUserName(username);
+        // if(result!=null && result>0){
+        //     return false;
+        // }else{
+        //     return true;
+        // }
+        return result != null;
+    }
+
+    private UserInfoModel do2UserInfo(UserTModel moocUserT) {
+        UserInfoModel userInfoModel = new UserInfoModel();
+
+        userInfoModel.setUuid(moocUserT.getUuid());
+        userInfoModel.setHeadAddress(moocUserT.getHeadUrl());
+        userInfoModel.setPhone(moocUserT.getUserPhone());
+        userInfoModel.setUpdateTime(moocUserT.getUpdateTime().getTime());
+        userInfoModel.setEmail(moocUserT.getEmail());
+        userInfoModel.setUsername(moocUserT.getUserName());
+        userInfoModel.setNickname(moocUserT.getNickName());
+        userInfoModel.setLifeState("" + moocUserT.getLifeState());
+        userInfoModel.setBirthday(moocUserT.getBirthday());
+        userInfoModel.setAddress(moocUserT.getAddress());
+        userInfoModel.setSex(moocUserT.getUserSex());
+        userInfoModel.setBeginTime(moocUserT.getBeginTime().getTime());
+        userInfoModel.setBiography(moocUserT.getBiography());
+
+        return userInfoModel;
+    }
+
+    @Override
+    public UserInfoModel getUserInfo(int uuid) {
+        // 根据主键查询用户信息 [MoocUserT]
+        UserTModel moocUserT = userTRepository.getOne(uuid);
+        // 将MoocUserT转换UserInfoModel
+        // 返回UserInfoModel
+        return do2UserInfo(moocUserT);
+    }
+
+    @Override
+    public UserInfoModel updateUserInfo(UserInfoModel userInfoModel) {
+        // 将传入的参数转换为DO 【MoocUserT】
+        UserTModel moocUserT = new UserTModel();
+        moocUserT.setUuid(userInfoModel.getUuid());
+        moocUserT.setNickName(userInfoModel.getNickname());
+        moocUserT.setLifeState(Integer.parseInt(userInfoModel.getLifeState()));
+        moocUserT.setBirthday(userInfoModel.getBirthday());
+        moocUserT.setBiography(userInfoModel.getBiography());
+        moocUserT.setBeginTime(null);
+        moocUserT.setHeadUrl(userInfoModel.getHeadAddress());
+        moocUserT.setEmail(userInfoModel.getEmail());
+        moocUserT.setAddress(userInfoModel.getAddress());
+        moocUserT.setUserPhone(userInfoModel.getPhone());
+        moocUserT.setUserSex(userInfoModel.getSex());
+        moocUserT.setUpdateTime(null);
+
+        // DO存入数据库
+        UserTModel integer = userTRepository.save(moocUserT);
+        // if(integer>0){
+        //     // 将数据从数据库中读取出来
+            UserInfoModel userInfo = getUserInfo(moocUserT.getUuid());
+        //     // 将结果返回给前端
+        //     return userInfo;
+        // }else{
+        //     return null;
+        // }
+        return userInfo;
+    }
+
+
+}
