@@ -10,3 +10,6 @@
 ![](/home/shuaijunlan/workspace/projects/cinema-platform/docs/images/Screenshot from 2018-12-28 21-24-54.png)
 
 ### 用户模块
+### 影院模块
+### 影片模块
+### 订单模块
