@@ -68,7 +68,11 @@
         <dependency>
             <groupId>cn.shuaijunlan</groupId>
             <artifactId>platform-core</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
         </dependency>
 
     </dependencies>
