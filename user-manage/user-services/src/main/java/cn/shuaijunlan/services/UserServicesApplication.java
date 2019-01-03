@@ -9,10 +9,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @SpringBootApplication
 @EnableDubbo
-public class ServicesApplication {
+public class UserServicesApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ServicesApplication.class, args);
+        SpringApplication.run(UserServicesApplication.class, args);
     }
 
 }
