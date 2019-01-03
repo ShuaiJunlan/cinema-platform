@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: user-manage-services
+  datasource:
+    url: jdbc:mysql://218.199.102.33:3307/test?autoReconnect=true&useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
+    username: root
+    password: shuaijun123
+
+
+# Dubbo Config properties
+dubbo:
+  application:
+    id: user-manage-user
+    name: user-manage-user
+  protocol:
+    name: dubbo
+    port: 20881
+  registry:
+    address: zookeeper://218.199.102.33:2181
