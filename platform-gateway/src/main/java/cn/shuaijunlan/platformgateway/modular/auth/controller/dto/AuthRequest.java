@@ -6,8 +6,8 @@ import cn.shuaijunlan.platformgateway.modular.auth.validator.dto.Credence;
 /**
  * 认证的请求dto
  *
- * @author fengshuonan
- * @Date 2017/8/24 14:00
+ * @author Shuai Junlan[shuaijunlan@gmail.com].
+ * @since Created in 10:06 PM 1/3/19.
  */
 public class AuthRequest implements Credence {
 
