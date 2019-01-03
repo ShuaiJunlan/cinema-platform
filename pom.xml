@@ -140,6 +140,11 @@
                 <artifactId>ehcache-core</artifactId>
                 <version>${ehcache.core.version}</version>
             </dependency>
+            <dependency>
+                <groupId>cn.shuaijunlan</groupId>
+                <artifactId>platform-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
 
         </dependencies>
     </dependencyManagement>
