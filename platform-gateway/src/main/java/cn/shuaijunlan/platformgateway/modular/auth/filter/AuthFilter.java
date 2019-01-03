@@ -7,8 +7,6 @@ import cn.shuaijunlan.platformgateway.common.exception.BizExceptionEnum;
 import cn.shuaijunlan.platformgateway.config.properties.JwtProperties;
 import cn.shuaijunlan.platformgateway.modular.auth.util.JwtTokenUtil;
 import io.jsonwebtoken.JwtException;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -21,12 +19,10 @@ import java.io.IOException;
 /**
  * 对客户端请求的jwt token验证过滤器
  *
- * @author fengshuonan
- * @Date 2017/8/24 14:04
+ * @author Shuai Junlan[shuaijunlan@gmail.com].
+ * @since Created in 10:13 PM 1/3/19.
  */
 public class AuthFilter extends OncePerRequestFilter {
-
-    private final Log logger = LogFactory.getLog(this.getClass());
 
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
@@ -44,8 +40,8 @@ public class AuthFilter extends OncePerRequestFilter {
         // 配置忽略列表
         String ignoreUrl = jwtProperties.getIgnoreUrl();
         String[] ignoreUrls = ignoreUrl.split(",");
-        for (int i = 0; i < ignoreUrls.length; i++) {
-            if (request.getServletPath().equals(ignoreUrls[i])) {
+        for (String ignoreUrl1 : ignoreUrls) {
+            if (request.getServletPath().equals(ignoreUrl1)) {
                 chain.doFilter(request, response);
                 return;
             }
