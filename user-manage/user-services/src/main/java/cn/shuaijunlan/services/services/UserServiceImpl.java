@@ -7,7 +7,6 @@ import cn.shuaijunlan.userservicesapi.IUserService;
 import cn.shuaijunlan.userservicesapi.vo.UserInfoModel;
 import cn.shuaijunlan.userservicesapi.vo.UserModel;
 import com.alibaba.dubbo.config.annotation.Service;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
@@ -20,12 +19,15 @@ import java.util.Optional;
 @Service(interfaceClass = IUserService.class, loadbalance = "roundrobin")
 public class UserServiceImpl implements IUserService {
 
-    @Autowired
-    private UserRepository userTRepository;
+    private final UserRepository userTRepository;
+
+    public UserServiceImpl(UserRepository userTRepository) {
+        this.userTRepository = userTRepository;
+    }
 
     @Override
     public boolean register(UserModel userModel) {
-        // 将注册信息实体转换为数据实体[mooc_user_t]
+        // 将注册信息实体转换为数据实体[user_info]
         UserTableModel userTModel = new UserTableModel();
         userTModel.setUserName(userModel.getUsername());
         userTModel.setEmail(userModel.getEmail());
@@ -35,7 +37,7 @@ public class UserServiceImpl implements IUserService {
 
         // 数据加密 【MD5混淆加密 + 盐值 -> Shiro加密】
         String md5Password = MD5Util.encrypt(userModel.getPassword());
-        userTModel.setUserPwd(md5Password); // 注意
+        userTModel.setUserPwd(md5Password);
 
         // 将数据实体存入数据库
         UserTableModel insert = userTRepository.save(userTModel);
@@ -45,8 +47,8 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public int login(String username, String password) {
-        // 根据登陆账号获取数据库信息
-        UserTableModel result = userTRepository.findUserTModelByUserName(username);
+        // 根据登陆账号从数据库获取信息
+        UserTableModel result = userTRepository.findUserTableModelByUserName(username);
 
         // 获取到的结果，然后与加密以后的密码做匹配
         if (result != null && result.getUuid() > 0) {
@@ -60,43 +62,48 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public boolean checkUsername(String username) {
-        UserTableModel result = userTRepository.findUserTModelByUserName(username);
+        UserTableModel result = userTRepository.findUserTableModelByUserName(username);
         return result == null;
     }
 
-    private UserInfoModel do2UserInfo(UserTableModel moocUserT) {
+
+
+    @Override
+    public UserInfoModel getUserInfo(int uuid) {
+        // 根据主键查询用户信息
+        Optional<UserTableModel> optionalUserTableModel = userTRepository.findById(uuid);
+        UserTableModel userTableModel = optionalUserTableModel.orElse(null);
+        if (userTableModel == null){
+            return null;
+        }
+        // 将UserTableModel转换UserInfoModel
+        // 返回UserInfoModel
+        return do2UserInfo(userTableModel);
+    }
+
+    private UserInfoModel do2UserInfo(UserTableModel userTableModel) {
         UserInfoModel userInfoModel = new UserInfoModel();
 
-        userInfoModel.setUuid(moocUserT.getUuid());
-        userInfoModel.setHeadAddress(moocUserT.getHeadUrl());
-        userInfoModel.setPhone(moocUserT.getUserPhone());
-        userInfoModel.setUpdateTime(moocUserT.getUpdateTime().getTime());
-        userInfoModel.setEmail(moocUserT.getEmail());
-        userInfoModel.setUsername(moocUserT.getUserName());
-        userInfoModel.setNickname(moocUserT.getNickName());
-        userInfoModel.setLifeState("" + moocUserT.getLifeState());
-        userInfoModel.setBirthday(moocUserT.getBirthday());
-        userInfoModel.setAddress(moocUserT.getAddress());
-        userInfoModel.setSex(moocUserT.getUserSex());
-        userInfoModel.setBeginTime(moocUserT.getBeginTime().getTime());
-        userInfoModel.setBiography(moocUserT.getBiography());
+        userInfoModel.setUuid(userTableModel.getUuid());
+        userInfoModel.setHeadAddress(userTableModel.getHeadUrl());
+        userInfoModel.setPhone(userTableModel.getUserPhone());
+        userInfoModel.setUpdateTime(userTableModel.getUpdateTime().getTime());
+        userInfoModel.setEmail(userTableModel.getEmail());
+        userInfoModel.setUsername(userTableModel.getUserName());
+        userInfoModel.setNickname(userTableModel.getNickName());
+        userInfoModel.setLifeState("" + userTableModel.getLifeState());
+        userInfoModel.setBirthday(userTableModel.getBirthday());
+        userInfoModel.setAddress(userTableModel.getAddress());
+        userInfoModel.setSex(userTableModel.getUserSex());
+        userInfoModel.setBeginTime(userTableModel.getBeginTime().getTime());
+        userInfoModel.setBiography(userTableModel.getBiography());
 
         return userInfoModel;
     }
 
     @Override
-    public UserInfoModel getUserInfo(int uuid) {
-        // 根据主键查询用户信息 [MoocUserT]
-        Optional<UserTableModel> optionalUserTModel = userTRepository.findById(uuid);
-        UserTableModel moocUserT = optionalUserTModel.orElse(null);
-        // 将MoocUserT转换UserInfoModel
-        // 返回UserInfoModel
-        return do2UserInfo(moocUserT);
-    }
-
-    @Override
     public UserInfoModel updateUserInfo(UserInfoModel userInfoModel) {
-        // 将传入的参数转换为DO 【MoocUserT】
+        // 将传入的参数转换为UserTableModel
         UserTableModel userTModel = new UserTableModel();
         userTModel.setUuid(userInfoModel.getUuid());
         userTModel.setNickName(userInfoModel.getNickname());
@@ -112,17 +119,8 @@ public class UserServiceImpl implements IUserService {
         userTModel.setUpdateTime(null);
 
         // DO存入数据库
-        UserTableModel integer = userTRepository.save(userTModel);
-        // if(integer>0){
-        //     // 将数据从数据库中读取出来
-            UserInfoModel userInfo = getUserInfo(userTModel.getUuid());
-        //     // 将结果返回给前端
-        //     return userInfo;
-        // }else{
-        //     return null;
-        // }
-        return userInfo;
+        UserTableModel userTableModel = userTRepository.save(userTModel);
+
+        return getUserInfo(userTModel.getUuid());
     }
-
-
 }

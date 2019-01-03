@@ -17,7 +17,5 @@ public interface UserRepository extends JpaRepository<UserTableModel, Integer> {
      * @param username username
      * @return userTModel
      */
-    UserTableModel findUserTModelByUserName(String username);
-
-    List<UserTableModel> findAllByUserName(String username);
+    UserTableModel findUserTableModelByUserName(String username);
 }
