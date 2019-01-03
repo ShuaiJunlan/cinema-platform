@@ -2,6 +2,9 @@ package cn.shuaijunlan.platformgateway.modular.vo;
 
 import lombok.Data;
 
+/**
+ * @author shuaijunlan
+ */
 @Data
 public class ResponseVO<M> {
     // 返回状态【0-成功，1-业务失败，999-表示系统异常】
