@@ -13,17 +13,21 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * 请求验证的
  *
- * @author fengshuonan
- * @Date 2017/8/24 14:22
+ * @author Shuai Junlan[shuaijunlan@gmail.com].
+ * @since Created in 10:06 PM 1/3/19.
  */
 @RestController
 public class AuthController {
 
-    @Autowired
-    private JwtTokenUtil jwtTokenUtil;
+    private final JwtTokenUtil jwtTokenUtil;
 
     @Reference(interfaceClass = IUserService.class, check = false)
     private IUserService IUserService;
+
+    @Autowired
+    public AuthController(JwtTokenUtil jwtTokenUtil) {
+        this.jwtTokenUtil = jwtTokenUtil;
+    }
 
     @RequestMapping(value = "${jwt.auth-path}")
     public ResponseVO createAuthenticationToken(AuthRequest authRequest) {

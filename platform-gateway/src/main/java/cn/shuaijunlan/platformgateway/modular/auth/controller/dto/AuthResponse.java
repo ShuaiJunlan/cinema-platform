@@ -5,8 +5,8 @@ import java.io.Serializable;
 /**
  * 认证的响应结果
  *
- * @author fengshuonan
- * @Date 2017/8/24 13:58
+ * @author Shuai Junlan[shuaijunlan@gmail.com].
+ * @since Created in 10:06 PM 1/3/19.
  */
 public class AuthResponse implements Serializable {
 
