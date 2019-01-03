@@ -1,16 +1,18 @@
 package cn.shuaijunlan.platformgateway.config.properties;
 
+import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
 /**
  * 项目相关配置
  *
- * @author fengshuonan
- * @date 2017年10月23日16:44:15
+ * @author Shuai Junlan[shuaijunlan@gmail.com].
+ * @since Created in 9:55 PM 1/3/19.
  */
-@Configuration
+@Component
 @ConfigurationProperties(prefix = RestProperties.REST_PREFIX)
+@Data
 public class RestProperties {
 
     public static final String REST_PREFIX = "rest";
@@ -19,19 +21,4 @@ public class RestProperties {
 
     private boolean signOpen = true;
 
-    public boolean isAuthOpen() {
-        return authOpen;
-    }
-
-    public void setAuthOpen(boolean authOpen) {
-        this.authOpen = authOpen;
-    }
-
-    public boolean isSignOpen() {
-        return signOpen;
-    }
-
-    public void setSignOpen(boolean signOpen) {
-        this.signOpen = signOpen;
-    }
 }
