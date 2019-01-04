@@ -35,9 +35,9 @@ public class UserInfoTable implements Serializable {
      */
     private String nickName;
     /**
-     * 用户性别 0-男，1-女
+     * 用户性别 0-男，1-女， 2-保密
      */
-    private Integer userSex;
+    private Integer userSex = 2;
     /**
      * 出生日期
      */
@@ -59,9 +59,9 @@ public class UserInfoTable implements Serializable {
      */
     private String headUrl;
     /**
-     * 生活状态
+     * 生活状态 4-保密
      */
-    private Integer lifeState;
+    private Integer lifeState = 4;
     /**
      * 生活状态
      */
@@ -74,6 +74,5 @@ public class UserInfoTable implements Serializable {
      * 修改时间
      */
     private Date updateTime;
-
 }
 

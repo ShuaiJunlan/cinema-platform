@@ -81,6 +81,7 @@ public class UserServiceImpl implements IUserService {
         }
         // 将UserTableModel转换UserInfoModel
         // 返回UserInfoModel
+        System.out.println(userInfoTable.toString());
         return do2UserInfo(userInfoTable);
     }
 
