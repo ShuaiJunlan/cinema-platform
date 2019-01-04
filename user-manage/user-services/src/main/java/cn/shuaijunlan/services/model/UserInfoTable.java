@@ -11,9 +11,9 @@ import java.util.Date;
  * @author Shuai Junlan[shuaijunlan@gmail.com].
  * @since Created in 3:29 PM 1/2/19.
  */
-@Entity(name = "user_info")
+@Entity
 @Data
-public class UserTableModel implements Serializable {
+public class UserInfoTable implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
