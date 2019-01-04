@@ -2,13 +2,15 @@ package cn.shuaijunlan.services.services;
 
 import cn.shuaijunlan.platform.core.util.MD5Util;
 import cn.shuaijunlan.services.dao.repository.UserRepository;
-import cn.shuaijunlan.services.model.UserTableModel;
+import cn.shuaijunlan.services.model.UserInfoTable;
 import cn.shuaijunlan.userservicesapi.IUserService;
 import cn.shuaijunlan.userservicesapi.vo.UserInfoModel;
 import cn.shuaijunlan.userservicesapi.vo.UserModel;
 import com.alibaba.dubbo.config.annotation.Service;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
 import java.util.Optional;
 
 
@@ -19,16 +21,17 @@ import java.util.Optional;
 @Service(interfaceClass = IUserService.class, loadbalance = "roundrobin")
 public class UserServiceImpl implements IUserService {
 
-    private final UserRepository userTRepository;
+    private final UserRepository userRepository;
 
+    @Autowired
     public UserServiceImpl(UserRepository userTRepository) {
-        this.userTRepository = userTRepository;
+        this.userRepository = userTRepository;
     }
 
     @Override
     public boolean register(UserModel userModel) {
         // 将注册信息实体转换为数据实体[user_info]
-        UserTableModel userTModel = new UserTableModel();
+        UserInfoTable userTModel = new UserInfoTable();
         userTModel.setUserName(userModel.getUsername());
         userTModel.setEmail(userModel.getEmail());
         userTModel.setAddress(userModel.getAddress());
@@ -40,7 +43,7 @@ public class UserServiceImpl implements IUserService {
         userTModel.setUserPwd(md5Password);
 
         // 将数据实体存入数据库
-        UserTableModel insert = userTRepository.save(userTModel);
+        UserInfoTable insert = userRepository.save(userTModel);
         return insert != null;
     }
 
@@ -48,7 +51,7 @@ public class UserServiceImpl implements IUserService {
     @Override
     public int login(String username, String password) {
         // 根据登陆账号从数据库获取信息
-        UserTableModel result = userTRepository.findUserTableModelByUserName(username);
+        UserInfoTable result = userRepository.findUserTableModelByUserName(username);
 
         // 获取到的结果，然后与加密以后的密码做匹配
         if (result != null && result.getUuid() > 0) {
@@ -62,7 +65,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public boolean checkUsername(String username) {
-        UserTableModel result = userTRepository.findUserTableModelByUserName(username);
+        UserInfoTable result = userRepository.findUserTableModelByUserName(username);
         return result == null;
     }
 
@@ -71,56 +74,58 @@ public class UserServiceImpl implements IUserService {
     @Override
     public UserInfoModel getUserInfo(int uuid) {
         // 根据主键查询用户信息
-        Optional<UserTableModel> optionalUserTableModel = userTRepository.findById(uuid);
-        UserTableModel userTableModel = optionalUserTableModel.orElse(null);
-        if (userTableModel == null){
+        Optional<UserInfoTable> optionalUserTableModel = userRepository.findById(uuid);
+        UserInfoTable userInfoTable = optionalUserTableModel.orElse(null);
+        if (userInfoTable == null){
             return null;
         }
         // 将UserTableModel转换UserInfoModel
         // 返回UserInfoModel
-        return do2UserInfo(userTableModel);
+        return do2UserInfo(userInfoTable);
     }
 
-    private UserInfoModel do2UserInfo(UserTableModel userTableModel) {
+    private UserInfoModel do2UserInfo(UserInfoTable userInfoTable) {
         UserInfoModel userInfoModel = new UserInfoModel();
 
-        userInfoModel.setUuid(userTableModel.getUuid());
-        userInfoModel.setHeadAddress(userTableModel.getHeadUrl());
-        userInfoModel.setPhone(userTableModel.getUserPhone());
-        userInfoModel.setUpdateTime(userTableModel.getUpdateTime().getTime());
-        userInfoModel.setEmail(userTableModel.getEmail());
-        userInfoModel.setUsername(userTableModel.getUserName());
-        userInfoModel.setNickname(userTableModel.getNickName());
-        userInfoModel.setLifeState("" + userTableModel.getLifeState());
-        userInfoModel.setBirthday(userTableModel.getBirthday());
-        userInfoModel.setAddress(userTableModel.getAddress());
-        userInfoModel.setSex(userTableModel.getUserSex());
-        userInfoModel.setBeginTime(userTableModel.getBeginTime().getTime());
-        userInfoModel.setBiography(userTableModel.getBiography());
+        userInfoModel.setUuid(userInfoTable.getUuid());
+        userInfoModel.setHeadAddress(userInfoTable.getHeadUrl());
+        userInfoModel.setPhone(userInfoTable.getUserPhone());
+        userInfoModel.setUpdateTime(userInfoTable.getUpdateTime().getTime());
+        userInfoModel.setEmail(userInfoTable.getEmail());
+        userInfoModel.setUsername(userInfoTable.getUserName());
+        userInfoModel.setNickname(userInfoTable.getNickName());
+        userInfoModel.setLifeState("" + userInfoTable.getLifeState());
+        userInfoModel.setBirthday(userInfoTable.getBirthday());
+        userInfoModel.setAddress(userInfoTable.getAddress());
+        userInfoModel.setSex(userInfoTable.getUserSex());
+        userInfoModel.setBeginTime(userInfoTable.getBeginTime().getTime());
+        userInfoModel.setBiography(userInfoTable.getBiography());
 
         return userInfoModel;
     }
 
     @Override
-    public UserInfoModel updateUserInfo(UserInfoModel userInfoModel) {
+    public UserInfoModel updateUserInfo(UserInfoModel newObj) {
+
         // 将传入的参数转换为UserTableModel
-        UserTableModel userTModel = new UserTableModel();
-        userTModel.setUuid(userInfoModel.getUuid());
-        userTModel.setNickName(userInfoModel.getNickname());
-        userTModel.setLifeState(Integer.parseInt(userInfoModel.getLifeState()));
-        userTModel.setBirthday(userInfoModel.getBirthday());
-        userTModel.setBiography(userInfoModel.getBiography());
+        UserInfoTable userTModel = new UserInfoTable();
+        userTModel.setUuid(newObj.getUuid());
+        userTModel.setNickName(newObj.getNickname());
+        userTModel.setLifeState(Integer.parseInt(newObj.getLifeState()));
+        userTModel.setBirthday(newObj.getBirthday());
+        userTModel.setBiography(newObj.getBiography());
         userTModel.setBeginTime(null);
-        userTModel.setHeadUrl(userInfoModel.getHeadAddress());
-        userTModel.setEmail(userInfoModel.getEmail());
-        userTModel.setAddress(userInfoModel.getAddress());
-        userTModel.setUserPhone(userInfoModel.getPhone());
-        userTModel.setUserSex(userInfoModel.getSex());
-        userTModel.setUpdateTime(null);
+        userTModel.setHeadUrl(newObj.getHeadAddress());
+        userTModel.setEmail(newObj.getEmail());
+        userTModel.setAddress(newObj.getAddress());
+        userTModel.setUserPhone(newObj.getPhone());
+        userTModel.setUserSex(newObj.getSex());
+        userTModel.setUpdateTime(new Date());
 
         // DO存入数据库
-        UserTableModel userTableModel = userTRepository.save(userTModel);
+        UserInfoTable userInfoTable = userRepository.save(userTModel);
+        // System.out.println(userRepository.updateUserInfo(userInfoModel.getUuid(), userInfoModel.getUsername(), userInfoModel.getNickname(), userInfoModel.getSex()));
 
-        return getUserInfo(userTModel.getUuid());
+        return newObj;
     }
 }
