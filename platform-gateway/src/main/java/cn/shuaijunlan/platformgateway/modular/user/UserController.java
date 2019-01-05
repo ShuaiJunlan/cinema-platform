@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 /**
  * @author shuaijunlan
  */
@@ -125,7 +128,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "updatePassword")
-    public ResponseVO updatePassword(String password){
+    public ResponseVO updatePassword(String password, HttpServletRequest request){
         if (StringUtils.isEmpty(password)){
             return ResponseVO.serviceFail("修改失败");
         }
@@ -133,6 +136,8 @@ public class UserController {
         if (re != 1){
             return ResponseVO.serviceFail("修改失败");
         }
+        HttpSession session = request.getSession();
+        session.removeAttribute(session.getId());
         return ResponseVO.success("修改成功");
     }
 }
