@@ -1,8 +1,8 @@
-package cn.shuaijunlan.services.services;
+package cn.shuaijunlan.userservices.services;
 
 import cn.shuaijunlan.platform.core.util.MD5Util;
-import cn.shuaijunlan.services.dao.repository.UserRepository;
-import cn.shuaijunlan.services.model.UserInfoTable;
+import cn.shuaijunlan.userservices.dao.repository.UserRepository;
+import cn.shuaijunlan.userservices.dao.model.UserInfoTable;
 import cn.shuaijunlan.userservicesapi.IUserService;
 import cn.shuaijunlan.userservicesapi.vo.UserInfoModel;
 import cn.shuaijunlan.userservicesapi.vo.UserModel;
@@ -10,7 +10,6 @@ import com.alibaba.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
 import java.util.Optional;
 
 

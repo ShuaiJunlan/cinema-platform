@@ -1,6 +1,6 @@
 spring:
   application:
-    name: user-manage-services
+    name: user-manage-userservices
   datasource:
     url: jdbc:mysql://218.199.102.33:3307/test?autoReconnect=true&useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
     username: root
