@@ -10,11 +10,11 @@ import org.springframework.context.annotation.Configuration;
 /**
  * 签名校验messageConverter
  *
- * @author fengshuonan
- * @date 2017-08-25 16:04
+ * @author Shuai Junlan[shuaijunlan@gmail.com].
+ * @since Created in 4:51 PM 1/5/19.
  */
 @Configuration
-public class MessageConverConfig {
+public class MessageConverterConfig {
 
     @Bean
     @ConditionalOnProperty(prefix = RestProperties.REST_PREFIX, name = "sign-open", havingValue = "true", matchIfMissing = true)
