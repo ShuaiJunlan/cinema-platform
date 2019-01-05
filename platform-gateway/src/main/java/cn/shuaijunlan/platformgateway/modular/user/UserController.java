@@ -67,7 +67,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "logout", method = RequestMethod.GET)
-    public ResponseVO logout() {
+    public ResponseVO logout(HttpServletRequest request) {
         /*
             应用：
                 1、前端存储JWT 【七天】 ： JWT的刷新
@@ -79,6 +79,8 @@ public class UserController {
             现状：
                 1、前端删除掉JWT
          */
+        HttpSession session = request.getSession();
+        session.removeAttribute(session.getId());
 
 
         return ResponseVO.success("用户退出成功");
