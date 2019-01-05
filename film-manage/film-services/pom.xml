@@ -4,11 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>cn.shuaijunlan</groupId>
-        <artifactId>user-manage</artifactId>
+        <artifactId>film-manage</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <artifactId>user-services</artifactId>
-    <name>user-services</name>
+    <artifactId>film-services</artifactId>
+    <name>film-services</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
@@ -54,20 +54,11 @@
             <artifactId>netty-all</artifactId>
         </dependency>
         <!--dubbo end-->
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
-        <dependency>
-            <groupId>cn.shuaijunlan</groupId>
-            <artifactId>user-services-api</artifactId>
-            <version>${parent.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>cn.shuaijunlan</groupId>
-            <artifactId>platform-core</artifactId>
-        </dependency>
-
     </dependencies>
 
     <build>
