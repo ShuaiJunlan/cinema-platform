@@ -22,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 public interface UserRepository extends JpaRepository<UserInfoTable, Integer> {
 
     /**
+     * get user detailed information by username[unique]
      * @param username the user name
      * @return get user information
      */
@@ -66,7 +67,7 @@ public interface UserRepository extends JpaRepository<UserInfoTable, Integer> {
      * @param uuid      用户id
      * @param userName  用户名
      * @return  修改结果
-     * @throws Exception
+     * @throws Exception 异常
      */
     @Transactional(rollbackFor = Exception.class)
     @Modifying
