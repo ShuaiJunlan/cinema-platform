@@ -38,9 +38,7 @@ public class UserServiceImpl implements IUserService {
         userTModel.setUserPhone(userModel.getPhone());
         // 创建时间和修改时间 -> current_timestamp
 
-        // 数据加密 【MD5混淆加密 + 盐值 -> Shiro加密】
-        String md5Password = MD5Util.encrypt(userModel.getPassword());
-        userTModel.setUserPwd(md5Password);
+        userTModel.setUserPwd(userModel.getPassword());
 
         // 将数据实体存入数据库
         UserInfoTable insert = userRepository.save(userTModel);
@@ -95,10 +93,10 @@ public class UserServiceImpl implements IUserService {
         userInfoModel.setEmail(userInfoTable.getEmail());
         userInfoModel.setUsername(userInfoTable.getUserName());
         userInfoModel.setNickname(userInfoTable.getNickName());
-        userInfoModel.setLifeState("" + userInfoTable.getLifeState());
+        userInfoModel.setLifeState(userInfoTable.getLifeState());
         userInfoModel.setBirthday(userInfoTable.getBirthday());
         userInfoModel.setAddress(userInfoTable.getAddress());
-        userInfoModel.setSex(userInfoTable.getUserSex());
+        userInfoModel.setUserSex(userInfoTable.getUserSex());
         userInfoModel.setBeginTime(userInfoTable.getBeginTime().getTime());
         userInfoModel.setBiography(userInfoTable.getBiography());
 
@@ -106,27 +104,18 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public UserInfoModel updateUserInfo(UserInfoModel newObj) {
+    public UserInfoModel updateUserInfo(UserInfoModel obj) {
 
-        // 将传入的参数转换为UserTableModel
-        UserInfoTable userTModel = new UserInfoTable();
-        userTModel.setUuid(newObj.getUuid());
-        userTModel.setNickName(newObj.getNickname());
-        userTModel.setLifeState(Integer.parseInt(newObj.getLifeState()));
-        userTModel.setBirthday(newObj.getBirthday());
-        userTModel.setBiography(newObj.getBiography());
-        userTModel.setBeginTime(null);
-        userTModel.setHeadUrl(newObj.getHeadAddress());
-        userTModel.setEmail(newObj.getEmail());
-        userTModel.setAddress(newObj.getAddress());
-        userTModel.setUserPhone(newObj.getPhone());
-        userTModel.setUserSex(newObj.getSex());
-        userTModel.setUpdateTime(new Date());
+        try {
+            int re = userRepository.updateUserInfo(obj.getUuid(), obj.getUsername(), obj.getNickname(), obj.getEmail(), obj.getPhone(), obj.getUserSex(), obj.getBirthday(), obj.getLifeState(), obj.getBiography(), obj.getAddress(), obj.getHeadAddress());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return obj;
+    }
 
-        // DO存入数据库
-        UserInfoTable userInfoTable = userRepository.save(userTModel);
-        // System.out.println(userRepository.updateUserInfo(userInfoModel.getUuid(), userInfoModel.getUsername(), userInfoModel.getNickname(), userInfoModel.getSex()));
-
-        return newObj;
+    @Override
+    public int updateUserPassword(int uuid, String password) {
+        return userRepository.updatePassword(uuid, password);
     }
 }

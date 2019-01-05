@@ -9,14 +9,14 @@ import java.io.Serializable;
  */
 @Data
 public class UserInfoModel implements Serializable{
-    private Integer uuid;
+    private int uuid;
     private String username;
     private String nickname;
     private String email;
     private String phone;
-    private int sex;
+    private int userSex;
     private String birthday;
-    private String lifeState;
+    private int lifeState;
     private String biography;
     private String address;
     private String headAddress;

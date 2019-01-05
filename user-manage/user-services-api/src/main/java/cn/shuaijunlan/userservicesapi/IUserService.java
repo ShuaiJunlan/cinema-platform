@@ -19,4 +19,6 @@ public interface IUserService {
 
     UserInfoModel updateUserInfo(UserInfoModel userInfoModel);
 
+    int updateUserPassword(int uuid, String password);
+
 }

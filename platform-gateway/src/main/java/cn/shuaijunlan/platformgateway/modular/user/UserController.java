@@ -1,5 +1,6 @@
 package cn.shuaijunlan.platformgateway.modular.user;
 
+import cn.shuaijunlan.platform.core.util.MD5Util;
 import cn.shuaijunlan.platformgateway.common.CurrentUser;
 import cn.shuaijunlan.platformgateway.modular.vo.ResponseVO;
 import cn.shuaijunlan.userservicesapi.IUserService;
@@ -7,6 +8,7 @@ import cn.shuaijunlan.userservicesapi.vo.UserInfoModel;
 import cn.shuaijunlan.userservicesapi.vo.UserModel;
 import com.alibaba.dubbo.common.utils.ConcurrentHashSet;
 import com.alibaba.dubbo.config.annotation.Reference;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,6 +34,8 @@ public class UserController {
         if (userModel.getPassword() == null || userModel.getPassword().trim().length() == 0) {
             return ResponseVO.serviceFail("密码不能为空");
         }
+        //密码加密
+        userModel.setPassword(MD5Util.encrypt(userModel.getPassword()));
 
         boolean isSuccess = userService.register(userModel);
         if (isSuccess) {
@@ -118,5 +122,17 @@ public class UserController {
         } else {
             return ResponseVO.serviceFail("用户未登陆");
         }
+    }
+
+    @RequestMapping(value = "updatePassword")
+    public ResponseVO updatePassword(String password){
+        if (StringUtils.isEmpty(password)){
+            return ResponseVO.serviceFail("修改失败");
+        }
+        int re = userService.updateUserPassword(Integer.valueOf(CurrentUser.getCurrentUser()), MD5Util.encrypt(password));
+        if (re != 1){
+            return ResponseVO.serviceFail("修改失败");
+        }
+        return ResponseVO.success("修改成功");
     }
 }

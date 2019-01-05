@@ -4,11 +4,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import java.util.Date;
-
-import static org.junit.Assert.*;
 
 /**
  * @author Shuai Junlan[shuaijunlan@gmail.com].
@@ -22,10 +19,16 @@ public class UserRepositoryTest {
 
     @Test
     public void update(){
-        System.out.println(userRepository.updateUserName(5, "shuaijun"));
+        try {
+            System.out.println(userRepository.updateUserName(4, "admin"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            System.out.println(1);
+        }
     }
     @Test
     public void updateUserInfo(){
-        userRepository.updateUserInfo(5, "shuaijunlan", "hello junlan", 1, "hubei");
+        // userRepository.updateUserInfo(5, "shuaijunlan", "hello junlan", 1, "hubei");
     }
 }
