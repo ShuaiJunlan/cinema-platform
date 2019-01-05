@@ -1,4 +1,4 @@
-package cn.shuaijunlan.services;
+package cn.shuaijunlan.userservices;
 
 import com.alibaba.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.springframework.boot.SpringApplication;

@@ -1,8 +1,10 @@
-package cn.shuaijunlan.services.model;
+package cn.shuaijunlan.userservices.dao.model;
 
 import lombok.Data;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Date;
@@ -21,6 +23,7 @@ public class UserInfoTable implements Serializable {
      * 主键编号
      */
     @Id
+    @GeneratedValue
     private int uuid;
     /**
      * 用户账号
@@ -37,6 +40,7 @@ public class UserInfoTable implements Serializable {
     /**
      * 用户性别 0-男，1-女， 2-保密
      */
+    @Column(nullable = false)
     private Integer userSex = 2;
     /**
      * 出生日期
@@ -61,6 +65,7 @@ public class UserInfoTable implements Serializable {
     /**
      * 生活状态 4-保密
      */
+    @Column(nullable = false)
     private Integer lifeState = 4;
     /**
      * 生活状态
