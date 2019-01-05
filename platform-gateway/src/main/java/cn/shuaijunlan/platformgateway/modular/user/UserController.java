@@ -80,6 +80,7 @@ public class UserController {
 
     @RequestMapping(value = "getUserInfo", method = RequestMethod.GET)
     public ResponseVO getUserInfo() {
+        System.out.println(Thread.currentThread().getName());
         // 获取当前登陆用户
         String userId = CurrentUser.getCurrentUser();
         if (userId != null && userId.trim().length() > 0) {

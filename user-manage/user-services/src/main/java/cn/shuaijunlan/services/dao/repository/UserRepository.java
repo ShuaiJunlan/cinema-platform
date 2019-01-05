@@ -8,8 +8,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
-
 /**
  * @author Shuai Junlan[shuaijunlan@gmail.com].
  * @since Created in 3:15 PM 1/2/19.
@@ -23,7 +21,7 @@ public interface UserRepository extends JpaRepository<UserInfoTable, Integer> {
      */
     UserInfoTable findUserTableModelByUserName(String username);
 
-    @Transactional
+    @Transactional()
     @Modifying
     @Query("update UserInfoTable ui set ui.userName=:userName, ui.nickName=:nickName, ui.userSex = :userSex, ui.address=:address where ui.uuid = :uuid")
     int updateUserInfo(
