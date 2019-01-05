@@ -23,13 +23,22 @@ public interface UserRepository extends JpaRepository<UserInfoTable, Integer> {
 
     @Transactional()
     @Modifying
-    @Query("update UserInfoTable ui set ui.userName=:userName, ui.nickName=:nickName, ui.userSex = :userSex, ui.address=:address where ui.uuid = :uuid")
+    @Query("update UserInfoTable ui set " +
+            "ui.userName=:userName, ui.nickName=:nickName, ui.email=:email, ui.userPhone=:phone, " +
+            "ui.userSex=:userSex, ui.birthday=:birthday, ui.lifeState=:lifeState, ui.biography=:biography, ui.address=:address, ui.headUrl=:headAddress " +
+            "where ui.uuid = :uuid")
     int updateUserInfo(
             @Param("uuid") int uuid,
             @Param("userName") String userName,
             @Param("nickName") String nickName,
+            @Param("email") String email,
+            @Param("phone") String phone,
             @Param("userSex") int userSex,
-            @Param("address") String address);
+            @Param("birthday") String birthday,
+            @Param("lifeState") int lifeState,
+            @Param("biography") String biography,
+            @Param("address") String address,
+            @Param("headAddress") String headAddress) throws Exception;
 
 
     @Transactional
@@ -37,12 +46,12 @@ public interface UserRepository extends JpaRepository<UserInfoTable, Integer> {
     @Query("update UserInfoTable u set u.userName=:username where u.uuid=:uuid")
     int updateUserName(
             @Param("uuid") Integer uuid,
-            @Param("username") String userName);
+            @Param("username") String userName) throws Exception;
 
     @Transactional
     @Modifying
     @Query("update UserInfoTable u set u.userPwd=:password where u.uuid=:uuid")
     int updatePassword(
-            @Param("uuid") Integer uuid,
+            @Param("uuid") int uuid,
             @Param("password") String password);
 }
