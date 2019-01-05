@@ -5,7 +5,9 @@ package cn.shuaijunlan.platformgateway.common;
  */
 public class CurrentUser {
 
-    // 线程绑定的存储空间
+    /**
+     * 线程绑定的存储空间
+     */
     private static final ThreadLocal<String> threadLocal = new ThreadLocal<>();
     public static void saveUserId(String userId){
         threadLocal.set(userId);

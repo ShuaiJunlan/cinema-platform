@@ -32,6 +32,7 @@ public class AuthController {
 
     @RequestMapping(value = "${jwt.auth-path}", method = RequestMethod.POST)
     public ResponseVO createAuthenticationToken(AuthRequest authRequest) {
+        System.out.println(Thread.currentThread().getName());
 
         boolean validate = true;
         // 去掉guns自身携带的用户名密码验证机制，使用我们自己的

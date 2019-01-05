@@ -10,6 +10,7 @@
 ![](/home/shuaijunlan/workspace/projects/cinema-platform/docs/images/Screenshot from 2018-12-28 21-24-54.png)
 
 ### 用户模块
+> 使用ThreadLocal保存用户信息，会导致什么问题？提示：使用Tomcat的nio模型，会导致多个请求分配到同一个ThreadLocal，后面的信息会覆盖前面的信息，线程不安全。？？？？
 ### 影院模块
 ### 影片模块
 ### 订单模块
