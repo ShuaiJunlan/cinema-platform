@@ -11,6 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * @author Shuai Junlan[shuaijunlan@gmail.com].
  * @since Created in 3:15 PM 1/2/19.
+ *
+ * TODO: Spring Data Jpa实现多表查询:
+ *  https://blog.csdn.net/johnf_nash/article/details/80587204
  */
 @Repository
 public interface UserRepository extends JpaRepository<UserInfoTable, Integer> {
