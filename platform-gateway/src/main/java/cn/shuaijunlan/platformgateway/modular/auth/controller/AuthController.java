@@ -8,6 +8,7 @@ import cn.shuaijunlan.userservicesapi.IUserService;
 import com.alibaba.dubbo.config.annotation.Reference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -29,7 +30,7 @@ public class AuthController {
         this.jwtTokenUtil = jwtTokenUtil;
     }
 
-    @RequestMapping(value = "${jwt.auth-path}")
+    @RequestMapping(value = "${jwt.auth-path}", method = RequestMethod.POST)
     public ResponseVO createAuthenticationToken(AuthRequest authRequest) {
 
         boolean validate = true;
