@@ -23,8 +23,8 @@ import java.util.Map;
  *         7. jti -- jwt唯一标识,防止重复使用
  * </pre>
  *
- * @author fengshuonan
- * @Date 2017/8/25 10:59
+ * @author Shuai Junlan[shuaijunlan@gmail.com].
+ * @since Created in 6:19 PM 1/4/19.
  */
 @Component
 public class JwtTokenUtil {
