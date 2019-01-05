@@ -3,6 +3,8 @@ spring:
     name: platform-gateway
 server:
   port: 8080
+  tomcat:
+    max-threads: 100
 
 # Dubbo Config properties
 dubbo:

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
  *
  * @author Shuai Junlan[shuaijunlan@gmail.com].
  * @since Created in 9:54 PM 1/3/19.
+ *
  * TODO: https://tuhrig.de/using-configurationproperties-to-separate-service-and-configuration/
  */
 @Component

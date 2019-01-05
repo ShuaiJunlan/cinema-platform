@@ -5,6 +5,7 @@ import cn.shuaijunlan.platformgateway.modular.vo.ResponseVO;
 import cn.shuaijunlan.userservicesapi.IUserService;
 import cn.shuaijunlan.userservicesapi.vo.UserInfoModel;
 import cn.shuaijunlan.userservicesapi.vo.UserModel;
+import com.alibaba.dubbo.common.utils.ConcurrentHashSet;
 import com.alibaba.dubbo.config.annotation.Reference;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,6 +20,8 @@ public class UserController {
 
     @Reference(interfaceClass = IUserService.class, check = false)
     private IUserService userService;
+
+    private static ConcurrentHashSet<Thread> concurrentHashSet = new ConcurrentHashSet<>();
 
 
     @RequestMapping(value = "register", method = RequestMethod.POST)
@@ -38,8 +41,10 @@ public class UserController {
         }
     }
 
-    @RequestMapping(value = "check", method = RequestMethod.POST)
+    @RequestMapping(value = "check", method = RequestMethod.GET)
     public ResponseVO check(String username) {
+        concurrentHashSet.add(Thread.currentThread());
+        System.out.println(concurrentHashSet.size());
         if (username != null && username.trim().length() > 0) {
             // 当返回true的时候，表示用户名可用
             boolean notExists = userService.checkUsername(username);
