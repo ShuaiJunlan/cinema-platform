@@ -1,10 +1,14 @@
 package cn.shuaijunlan.filmservices.service;
 
+import cn.shuaijunlan.filmservices.dao.model.FilmBannerTable;
+import cn.shuaijunlan.filmservices.dao.repository.*;
 import cn.shuaijunlan.filmservicesapi.FilmServiceApi;
 import cn.shuaijunlan.filmservicesapi.vo.*;
 import com.alibaba.dubbo.config.annotation.Service;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,10 +17,32 @@ import java.util.List;
  */
 @Component
 @Service(interfaceClass = FilmServiceApi.class)
-public class FimlServiceImpl implements FilmServiceApi {
+public class FilmServiceImpl implements FilmServiceApi {
+
+    private final FilmBannerRepository filmBannerRepository;
+    private final FilmRepository filmRepository;
+    private final FilmCatDictRepository filmCatDictRepository;
+    private final FilmInfoRepository filmInfoRepository;
+    private final FilmYearDictRepository filmYearDictRepository;
+    private final FilmSourceDictRepository filmSourceDictRepository;
+    private final ActorRepository actorRepository;
+
+    @Autowired
+    public FilmServiceImpl(FilmBannerRepository filmBannerRepository, FilmRepository filmRepository, FilmCatDictRepository filmCatDictRepository, FilmInfoRepository filmInfoRepository, FilmYearDictRepository filmYearDictRepository, FilmSourceDictRepository filmSourceDictRepository, ActorRepository actorRepository) {
+        this.filmBannerRepository = filmBannerRepository;
+        this.filmRepository = filmRepository;
+        this.filmCatDictRepository = filmCatDictRepository;
+        this.filmInfoRepository = filmInfoRepository;
+        this.filmYearDictRepository = filmYearDictRepository;
+        this.filmSourceDictRepository = filmSourceDictRepository;
+        this.actorRepository = actorRepository;
+    }
+
     @Override
     public List<BannerVO> getBanners() {
-        return null;
+
+        List<FilmBannerTable> filmBannerTableList = filmBannerRepository.findAll();
+        return new ArrayList<>(filmBannerTableList);
     }
 
     @Override
@@ -61,7 +87,7 @@ public class FimlServiceImpl implements FilmServiceApi {
 
     @Override
     public List<YearVO> getYears() {
-        return null;
+        return new ArrayList<>(filmYearDictRepository.findAll());
     }
 
     @Override

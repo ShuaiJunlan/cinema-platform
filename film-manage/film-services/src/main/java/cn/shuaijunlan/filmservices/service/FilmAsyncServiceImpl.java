@@ -39,7 +39,16 @@ public class FilmAsyncServiceImpl implements FilmAsyncServiceApi {
 
     @Override
     public FilmDescVO getFilmDesc(String filmId) {
-        return null;
+        FilmInfoTable filmInfoTable = getFilmInfoById(filmId);
+        if (filmInfoTable == null){
+            return new FilmDescVO();
+        }
+
+        FilmDescVO filmDescVO = new FilmDescVO();
+        filmDescVO.setBiography(filmInfoTable.getBiography());
+        filmDescVO.setFilmId(filmId);
+
+        return filmDescVO;
     }
 
     @Override

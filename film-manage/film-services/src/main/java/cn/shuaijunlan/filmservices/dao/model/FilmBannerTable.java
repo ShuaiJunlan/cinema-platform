@@ -1,6 +1,8 @@
 package cn.shuaijunlan.filmservices.dao.model;
 
+import cn.shuaijunlan.filmservicesapi.vo.BannerVO;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -15,7 +17,8 @@ import java.io.Serializable;
  */
 @Entity
 @Data
-public class FilmBannerTable implements Serializable {
+@EqualsAndHashCode(callSuper = true)
+public class FilmBannerTable extends BannerVO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -24,6 +27,7 @@ public class FilmBannerTable implements Serializable {
      */
     @Id
     private Integer uuid;
+
     /**
      * banner图存放路径
      */
@@ -36,6 +40,5 @@ public class FilmBannerTable implements Serializable {
      * 是否弃用 0-失效,1-失效
      */
     private Integer isValid;
-
 
 }

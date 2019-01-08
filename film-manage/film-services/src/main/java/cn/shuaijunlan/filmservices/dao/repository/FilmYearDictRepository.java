@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
  * @since Created in 8:17 PM 1/5/19.
  */
 @Repository
-public interface FilmYeatDictRepository extends JpaRepository<FilmYearDictTable,Integer> {
+public interface FilmYearDictRepository extends JpaRepository<FilmYearDictTable,Integer> {
 }

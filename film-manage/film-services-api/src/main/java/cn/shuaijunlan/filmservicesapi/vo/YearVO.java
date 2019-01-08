@@ -6,9 +6,12 @@ import java.io.Serializable;
 
 @Data
 public class YearVO implements Serializable {
+    private static final long serialVersionUID = 1L;
 
-    private String yearId;
-    private String yearName;
-    private boolean isActive;
+    private Integer uuid;
 
+    /**
+     * 显示名称
+     */
+    private String showName;
 }
