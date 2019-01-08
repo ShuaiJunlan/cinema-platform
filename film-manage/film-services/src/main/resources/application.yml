@@ -1,6 +1,6 @@
 spring:
   application:
-    name: film-userservices
+    name: film-services
   datasource:
     url: jdbc:mysql://218.199.102.33:3307/test?autoReconnect=true&useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
     username: root
@@ -15,8 +15,8 @@ spring:
 # Dubbo Config properties
 dubbo:
   application:
-    id: film-userservices
-    name: film-userservices
+    id: film-services
+    name: film-services
   protocol:
     name: dubbo
     port: 20882
