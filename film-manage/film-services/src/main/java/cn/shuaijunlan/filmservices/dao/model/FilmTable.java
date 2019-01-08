@@ -52,7 +52,7 @@ public class FilmTable implements Serializable {
     /**
      * 影片片源，参照片源字典表
      */
-    private String filmSource;
+    private Integer filmSource;
     /**
      * 影片分类，参照分类表,多个分类以,分割
      */
