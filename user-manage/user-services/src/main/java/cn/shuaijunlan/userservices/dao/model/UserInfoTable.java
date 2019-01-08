@@ -74,10 +74,12 @@ public class UserInfoTable implements Serializable {
     /**
      * 创建时间
      */
+    @Column(insertable = false, updatable = false)
     private Date beginTime;
     /**
      * 修改时间
      */
+    @Column(insertable = false, updatable = false)
     private Date updateTime;
 }
 

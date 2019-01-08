@@ -11,7 +11,8 @@ import java.io.Serializable;
  * 区域信息表
  * </p>
  *
- * @author jiangzh
+ * @author Shuai Junlan[shuaijunlan@gmail.com].
+ * @since Created in 8:08 PM 1/8/19.
  */
 @Entity
 @Data

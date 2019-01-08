@@ -29,6 +29,7 @@ public interface UserRepository extends JpaRepository<UserInfoTable, Integer> {
     UserInfoTable findUserTableModelByUserName(String username);
 
     /**
+     * 更新用户信息
      * @param uuid      用户id
      * @param userName  用户名
      * @param nickName  用户昵称
@@ -64,6 +65,7 @@ public interface UserRepository extends JpaRepository<UserInfoTable, Integer> {
 
 
     /**
+     * 修改用户名
      * @param uuid      用户id
      * @param userName  用户名
      * @return  修改结果
@@ -72,11 +74,13 @@ public interface UserRepository extends JpaRepository<UserInfoTable, Integer> {
     @Transactional(rollbackFor = Exception.class)
     @Modifying
     @Query("update UserInfoTable u set u.userName=:username where u.uuid=:uuid")
+    @Deprecated
     int updateUserName(
             @Param("uuid") Integer uuid,
             @Param("username") String userName) throws Exception;
 
     /**
+     * 修改密码
      * @param uuid      用户id
      * @param password  用户名
      * @return  修改结果

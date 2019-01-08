@@ -11,7 +11,12 @@ import java.io.Serializable;
  * <p>
  * 影片主表
  * </p>
+ *
+ * @author Shuai Junlan[shuaijunlan@gmail.com].
+ * @since Created in 8:08 PM 1/8/19.
+ *
  * TODO: about jpa properties: https://zjhdreams.iteye.com/blog/2112354
+ *  https://blog.csdn.net/qq649954944/article/details/79739655
  */
 @Entity
 @Data
