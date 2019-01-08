@@ -2,6 +2,7 @@ package cn.shuaijunlan.filmservices.dao.model;
 
 import lombok.Data;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.io.Serializable;
@@ -10,7 +11,7 @@ import java.io.Serializable;
  * <p>
  * 影片主表
  * </p>
- *
+ * TODO: about jpa properties: https://zjhdreams.iteye.com/blog/2112354
  */
 @Entity
 @Data
@@ -45,6 +46,7 @@ public class FilmInfoTable implements Serializable {
     /**
      * 影片介绍
      */
+    @Column(columnDefinition = "TEXT")
     private String biography;
     /**
      * 导演编号
@@ -53,5 +55,6 @@ public class FilmInfoTable implements Serializable {
     /**
      * 影片图片集地址,多个图片以逗号分隔
      */
+    @Column(columnDefinition = "TEXT")
     private String filmImgs;
 }
