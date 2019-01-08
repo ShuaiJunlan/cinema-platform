@@ -10,4 +10,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface FilmInfoRepository extends JpaRepository<FilmInfoTable, Integer> {
+    FilmInfoTable findFilmInfoTableByFilmId(String filmId);
 }
