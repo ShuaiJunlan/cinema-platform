@@ -10,7 +10,8 @@ import java.io.Serializable;
  * <p>
  * 影片与演员映射表
  * </p>
- *
+ * @author Shuai Junlan[shuaijunlan@gmail.com].
+ * @since Created in 8:08 PM 1/8/19.
  */
 @Entity
 @Data
