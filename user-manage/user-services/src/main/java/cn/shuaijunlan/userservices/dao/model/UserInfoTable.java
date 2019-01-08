@@ -28,6 +28,7 @@ public class UserInfoTable implements Serializable {
     /**
      * 用户账号
      */
+    @Column(unique = true)
     private String userName;
     /**
      * 用户密码
