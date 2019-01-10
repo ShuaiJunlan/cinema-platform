@@ -9,6 +9,7 @@
     </parent>
     <artifactId>cinema-manage</artifactId>
     <name>cinema-manage</name>
+    <packaging>pom</packaging>
     <description>Demo project for Spring Boot</description>
 
     <properties>

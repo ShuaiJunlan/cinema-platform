@@ -8,9 +8,7 @@ import cn.shuaijunlan.userservicesapi.IUserService;
 import com.alibaba.dubbo.config.annotation.Reference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.server.Session;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,10 +34,10 @@ public class AuthController {
     }
 
     @RequestMapping(value = "${jwt.auth-path}", method = {RequestMethod.POST, RequestMethod.GET})
-    public ResponseVO createAuthenticationToken(AuthRequest authRequest, HttpServletRequest request, HttpServletResponse response) {
+    public ResponseVO createAuthenticationToken(@RequestBody AuthRequest authRequest, HttpServletRequest request) {
 
         // 去掉guns自身携带的用户名密码验证机制，使用我们自己的
-        int userId = IUserService.login(authRequest.getUserName(), authRequest.getPassword());
+        int userId = IUserService.login(authRequest.getUsername(), authRequest.getPassword());
 
         HttpSession session = request.getSession();
         boolean validate = (userId > 0);
