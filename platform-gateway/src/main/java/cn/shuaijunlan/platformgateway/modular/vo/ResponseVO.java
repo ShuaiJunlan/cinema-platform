@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class ResponseVO<M> {
     // 返回状态【0-成功，1-业务失败，999-表示系统异常】
-    private int status;
+    private int code;
     // 返回信息
     private String msg;
     // 返回数据实体;
@@ -21,7 +21,7 @@ public class ResponseVO<M> {
 
     public static <M> ResponseVO success(M m) {
         ResponseVO responseVO = new ResponseVO();
-        responseVO.setStatus(0);
+        responseVO.setCode(0);
         responseVO.setData(m);
 
         return responseVO;
@@ -29,7 +29,7 @@ public class ResponseVO<M> {
 
     public static <M> ResponseVO success(String msg) {
         ResponseVO responseVO = new ResponseVO();
-        responseVO.setStatus(0);
+        responseVO.setCode(0);
         responseVO.setMsg(msg);
 
         return responseVO;
@@ -37,7 +37,7 @@ public class ResponseVO<M> {
 
     public static <M> ResponseVO serviceFail(String msg) {
         ResponseVO responseVO = new ResponseVO();
-        responseVO.setStatus(1);
+        responseVO.setCode(1);
         responseVO.setMsg(msg);
 
         return responseVO;
@@ -45,7 +45,7 @@ public class ResponseVO<M> {
 
     public static <M> ResponseVO appFail(String msg) {
         ResponseVO responseVO = new ResponseVO();
-        responseVO.setStatus(999);
+        responseVO.setCode(999);
         responseVO.setMsg(msg);
 
         return responseVO;
