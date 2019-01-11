@@ -17,6 +17,7 @@ dubbo:
   application:
     id: film-services
     name: film-services
+    qos-enable: false
   protocol:
     name: dubbo
     port: 20882
