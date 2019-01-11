@@ -68,6 +68,8 @@
         </dependency>
         <!--dubbo end-->
 
+
+
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>

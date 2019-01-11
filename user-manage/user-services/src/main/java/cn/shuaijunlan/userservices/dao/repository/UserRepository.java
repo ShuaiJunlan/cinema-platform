@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
  *  rollbackFor: https://blog.csdn.net/Cary_1029/article/details/84945166
  */
 @Repository
+@TxTransaction
 public interface UserRepository extends JpaRepository<UserInfoTable, Integer> {
 
     /**

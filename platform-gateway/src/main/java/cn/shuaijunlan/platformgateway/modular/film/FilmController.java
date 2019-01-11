@@ -24,6 +24,7 @@ public class FilmController {
     }
 
     @RequestMapping(value = "years")
+    // @LcnTransaction
     public List<YearVO> getAllYears(){
         return filmService.getYears();
     }

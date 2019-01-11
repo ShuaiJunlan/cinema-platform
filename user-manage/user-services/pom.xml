@@ -68,6 +68,13 @@
             <artifactId>platform-core</artifactId>
         </dependency>
 
+        <!--distributed transactional start-->
+        <dependency>
+            <groupId>com.codingapi.txlcn</groupId>
+            <artifactId>tx-client-dubbo</artifactId>
+        </dependency>
+        <!--distributed transactional end-->
+
     </dependencies>
 
     <build>
