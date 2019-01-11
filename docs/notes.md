@@ -14,3 +14,12 @@
 ### 影院模块
 ### 影片模块
 ### 订单模块
+
+
+### 系统网关设计
+
+### 分布式事务解决方案
+
+[liuyangming/ByteTCC](https://github.com/liuyangming/ByteTCC)
+
+[alibaba/fescar](https://github.com/alibaba/fescar)
