@@ -6,6 +6,8 @@ import cn.shuaijunlan.platformgateway.modular.auth.util.JwtTokenUtil;
 import cn.shuaijunlan.platformgateway.modular.vo.ResponseVO;
 import cn.shuaijunlan.userservicesapi.IUserService;
 import com.alibaba.dubbo.config.annotation.Reference;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +25,8 @@ import javax.servlet.http.HttpSession;
 @RestController
 public class AuthController {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(AuthController.class);
+
     private final JwtTokenUtil jwtTokenUtil;
 
     @Reference(interfaceClass = IUserService.class, check = false)
@@ -34,7 +38,8 @@ public class AuthController {
     }
 
     @RequestMapping(value = "${jwt.auth-path}", method = {RequestMethod.POST, RequestMethod.GET})
-    public ResponseVO createAuthenticationToken(@RequestBody AuthRequest authRequest, HttpServletRequest request) {
+    // public ResponseVO createAuthenticationToken(@RequestBody AuthRequest authRequest, HttpServletRequest request) {
+    public ResponseVO createAuthenticationToken(AuthRequest authRequest, HttpServletRequest request) {
 
         // 去掉guns自身携带的用户名密码验证机制，使用我们自己的
         int userId = IUserService.login(authRequest.getUsername(), authRequest.getPassword());
@@ -48,7 +53,7 @@ public class AuthController {
             final String randomKey = jwtTokenUtil.getRandomKey();
             final String token = jwtTokenUtil.generateToken("" + userId, randomKey);
 
-
+            LOGGER.info("Login successfully and session id is: " + session.getId());
             session.setAttribute(session.getId(), token);
 
             // 返回值
