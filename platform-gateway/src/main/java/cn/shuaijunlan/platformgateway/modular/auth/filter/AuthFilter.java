@@ -7,6 +7,8 @@ import cn.shuaijunlan.platformgateway.common.exception.BizExceptionEnum;
 import cn.shuaijunlan.platformgateway.config.properties.JwtProperties;
 import cn.shuaijunlan.platformgateway.modular.auth.util.JwtTokenUtil;
 import io.jsonwebtoken.JwtException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -24,6 +26,7 @@ import java.io.IOException;
  * @since Created in 10:13 PM 1/3/19.
  */
 public class AuthFilter extends OncePerRequestFilter {
+    private static final Logger LOGGER = LoggerFactory.getLogger(AuthFilter.class);
 
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
@@ -69,9 +72,11 @@ public class AuthFilter extends OncePerRequestFilter {
                 RenderUtil.renderJson(response, new ErrorTip(BizExceptionEnum.TOKEN_ERROR.getCode(), BizExceptionEnum.TOKEN_ERROR.getMessage()));
                 return;
             }
+            //根据token获取用户信息
             String userId = jwtTokenUtil.getUsernameFromToken(authToken);
             if (userId != null) {
                 CurrentUser.saveUserId(userId);
+                LOGGER.info("Store userId into ThreadLocal!");
                 chain.doFilter(request, response);
             }
         } else {

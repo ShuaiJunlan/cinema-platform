@@ -24,6 +24,6 @@
 
 [alibaba/fescar](https://github.com/alibaba/fescar)
 
-[codingapi/tx-lcn](https://github.com/codingapi/tx-lcn)
+- [x] [codingapi/tx-lcn](https://github.com/codingapi/tx-lcn)
 
 [changmingxie/tcc-transaction](https://github.com/changmingxie/tcc-transaction)
