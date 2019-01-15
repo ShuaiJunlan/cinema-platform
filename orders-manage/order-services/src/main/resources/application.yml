@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: order-manage-services
+  datasource:
+    url: jdbc:mysql://218.199.102.33:3307/order_manage?autoReconnect=true&useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
+    username: root
+    password: shuaijun123
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
+dubbo:
+  application:
+    qos-enable: false
+    id: order-manage-services
+    name: order-manage-services
+  protocol:
+    name: dubbo
+    port: 20884
+  registry:
+    address: zookeeper://218.199.102.33:2181
