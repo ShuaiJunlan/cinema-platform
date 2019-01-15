@@ -1,18 +1,29 @@
 package cn.shuaijunlan.cinemaservices.dao.model;
 
+import lombok.Data;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import java.io.Serializable;
+
 /**
- * <p>
  * 放映场次表
- * </p>
  *
+ * @author Shuai Junlan[shuaijunlan@gmail.com].
+ * @since Created in 11:09 AM 1/15/19.
  */
-public class MoocFieldT {
+@Data
+@Entity
+public class CinemaFilmTable implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     /**
      * 主键编号
      */
+    @Id
+    @GeneratedValue
     private Integer uuid;
     /**
      * 影院编号

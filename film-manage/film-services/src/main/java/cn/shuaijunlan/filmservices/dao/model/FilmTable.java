@@ -8,9 +8,9 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * <p>
+ *
  * 影片主表
- * </p>
+ *
  * @author Shuai Junlan[shuaijunlan@gmail.com].
  * @since Created in 8:08 PM 1/8/19.
  */

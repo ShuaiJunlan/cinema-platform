@@ -1,12 +1,12 @@
 package cn.shuaijunlan.cinemaservices.dao.model;
 
 /**
- * <p>
  * 影厅电影信息表
- * </p>
  *
+ * @author Shuai Junlan[shuaijunlan@gmail.com].
+ * @since Created in 11:59 AM 1/15/19.
  */
-public class MoocHallFilmInfoT {
+public class CinemaHallFilmInfoTable {
 
     private static final long serialVersionUID = 1L;
 

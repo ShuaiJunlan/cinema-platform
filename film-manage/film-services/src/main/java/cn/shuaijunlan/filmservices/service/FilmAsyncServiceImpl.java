@@ -33,12 +33,12 @@ public class FilmAsyncServiceImpl implements FilmAsyncServiceApi {
         this.actorRepository = actorRepository;
     }
 
-    private FilmInfoTable getFilmInfoById(String filmId){
-        return filmInfoRepository.findFilmInfoTableByFilmId(filmId);
+    private FilmInfoTable getFilmInfoById(Integer filmId){
+        return filmInfoRepository.getOne(filmId);
     }
 
     @Override
-    public FilmDescVO getFilmDesc(String filmId) {
+    public FilmDescVO getFilmDesc(Integer filmId) {
         FilmInfoTable filmInfoTable = getFilmInfoById(filmId);
         if (filmInfoTable == null){
             return new FilmDescVO();
@@ -52,7 +52,7 @@ public class FilmAsyncServiceImpl implements FilmAsyncServiceApi {
     }
 
     @Override
-    public ImgVO getImgs(String filmId) {
+    public ImgVO getImgs(Integer filmId) {
         FilmInfoTable filmInfoTable = getFilmInfoById(filmId);
         if (filmInfoTable == null){
             return new ImgVO();
@@ -73,7 +73,7 @@ public class FilmAsyncServiceImpl implements FilmAsyncServiceApi {
     }
 
     @Override
-    public ActorVO getDectInfo(String filmId) {
+    public ActorVO getDectInfo(Integer filmId) {
         FilmInfoTable filmInfoTable = getFilmInfoById(filmId);
 
         // 获取导演编号
@@ -89,7 +89,7 @@ public class FilmAsyncServiceImpl implements FilmAsyncServiceApi {
     }
 
     @Override
-    public List<ActorVO> getActors(String filmId) {
+    public List<ActorVO> getActors(Integer filmId) {
         return null;
     }
 }
