@@ -10,15 +10,15 @@ import java.util.List;
 public interface FilmAsyncServiceApi {
 
     // 获取影片描述信息
-    FilmDescVO getFilmDesc(String filmId);
+    FilmDescVO getFilmDesc(Integer filmId);
 
     // 获取图片信息
-    ImgVO getImgs(String filmId);
+    ImgVO getImgs(Integer filmId);
 
     // 获取导演信息
-    ActorVO getDectInfo(String filmId);
+    ActorVO getDectInfo(Integer filmId);
 
     // 获取演员信息
-    List<ActorVO> getActors(String filmId);
+    List<ActorVO> getActors(Integer filmId);
 
 }

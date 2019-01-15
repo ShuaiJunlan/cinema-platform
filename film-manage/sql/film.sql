@@ -175,8 +175,7 @@ INSERT INTO film_table(uuid,film_name,film_source,film_type,film_cats,film_area,
 DROP TABLE IF EXISTS `film_info_table`;
 CREATE TABLE film_info_table(
   UUID INT PRIMARY KEY AUTO_INCREMENT COMMENT '主键编号',
-  film_id VARCHAR(100) COMMENT '影片编号',
-  film_en_name VARCHAR(50) COMMENT '影片英文名称',
+  film_zh_name VARCHAR(50) COMMENT '影片中文名',
   film_score VARCHAR(20) COMMENT '影片评分',
   film_score_num INT COMMENT '评分人数,以万为单位',
   film_length INT COMMENT '播放时长，以分钟为单位，不足取整',
@@ -189,8 +188,8 @@ CREATE TABLE film_info_table(
 -- ----------------------------
 -- Records of film_info_table
 -- ----------------------------
-INSERT INTO film_info_table(film_id,film_en_name,film_score,film_score_num,film_length,director_id,film_imgs,biography)
-	values(2,'Dying To Survive','9.7',225,117,1,
+INSERT INTO film_info_table(film_zh_name,film_score,film_score_num,film_length,director_id,film_imgs,biography)
+	values('我不是药神','9.7',225,117,1,
 		'films/3065271341357040f5f5dd988550951e586199.jpg,films/6b2b3fd6260ac37e5ad44d00ea474ea3651419.jpg,films/4633dd44c51ff15fc7e939679d7cdb67561602.jpg,films/df2d30b1a3bd58fb1d38b978662ae844648169.jpg,films/c845f6b04aa49059951fd55e6b0eddac454036.jpg',
 		'一位不速之客的意外到访，打破了神油店老板程勇（徐峥 饰）的平凡人生，他从一个交不起房租的男性保健品商贩，一跃成为印度仿制药“格列宁”的独家代理商。收获巨额利润的他，生活剧烈变化，被病患们冠以“药神”的称号。但是，一场关于救赎的拉锯战也在波涛暗涌中慢慢展开......'
 	);

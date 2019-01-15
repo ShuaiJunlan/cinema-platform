@@ -9,9 +9,8 @@ import javax.persistence.Id;
 import java.io.Serializable;
 
 /**
- * <p>
+ *
  * 影片主表
- * </p>
  *
  * @author Shuai Junlan[shuaijunlan@gmail.com].
  * @since Created in 8:08 PM 1/8/19.
@@ -32,13 +31,9 @@ public class FilmInfoTable implements Serializable {
     @GeneratedValue
     private Integer uuid;
     /**
+     * 影片中文名
      */
-    @Column(unique = true)
-    private String filmId;
-    /**
-     * 影片英文名称
-     */
-    private String filmEnName;
+    private String filmZhName;
     /**
      * 影片评分
      */
