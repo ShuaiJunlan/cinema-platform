@@ -30,6 +30,7 @@
         <zkclient.version>0.10</zkclient.version>
         <netty.version>4.1.32.Final</netty.version>
         <jwt.version>0.9.0</jwt.version>
+        <hystrix.version>1.5.18</hystrix.version>
 
         <shiro.version>1.4.0</shiro.version>
         <fastjson.version>1.2.47</fastjson.version>
@@ -138,6 +139,25 @@
                 <artifactId>platform-core</artifactId>
                 <version>${project.version}</version>
             </dependency>
+
+            <!--hystrix-->
+            <dependency>
+                <groupId>com.netflix.hystrix</groupId>
+                <artifactId>hystrix-core</artifactId>
+                <version>${hystrix.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.netflix.hystrix</groupId>
+                <artifactId>hystrix-metrics-event-stream</artifactId>
+                <version>${hystrix.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.netflix.hystrix</groupId>
+                <artifactId>hystrix-javanica</artifactId>
+                <version>${hystrix.version}</version>
+            </dependency>
+            <!--hystrix end-->
+
         </dependencies>
     </dependencyManagement>
 

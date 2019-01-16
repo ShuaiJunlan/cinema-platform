@@ -18,6 +18,10 @@
 
 ### 系统网关设计
 
+#### 鉴权
+#### 熔断降级
+* https://blog.csdn.net/shilu89757/article/details/79363295
+
 ### 分布式事务解决方案
 
 [liuyangming/ByteTCC](https://github.com/liuyangming/ByteTCC)

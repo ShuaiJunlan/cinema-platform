@@ -5,6 +5,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  * @author shuaijunlan
+ *
+ *
  */
 @SpringBootApplication
 public class PlatformGatewayApplication {
