@@ -4,6 +4,7 @@ import cn.shuaijunlan.platform.core.base.tips.ErrorTip;
 import cn.shuaijunlan.platform.core.util.RenderUtil;
 import cn.shuaijunlan.platformgateway.common.CurrentUser;
 import cn.shuaijunlan.platformgateway.common.exception.BizExceptionEnum;
+import cn.shuaijunlan.platformgateway.config.properties.AuthProperties;
 import cn.shuaijunlan.platformgateway.config.properties.JwtProperties;
 import cn.shuaijunlan.platformgateway.modular.auth.util.JwtTokenUtil;
 import io.jsonwebtoken.JwtException;
@@ -34,6 +35,9 @@ public class AuthFilter extends OncePerRequestFilter {
     @Autowired
     private JwtProperties jwtProperties;
 
+    @Autowired
+    private AuthProperties authProperties;
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
         // 认证url
@@ -52,17 +56,20 @@ public class AuthFilter extends OncePerRequestFilter {
             }
         }
 
+        String randomKey = request.getHeader(authProperties.getKeyName());
+        String token = request.getHeader(authProperties.getTokenName());
+
+        if (randomKey == null || token == null){
+            RenderUtil.renderJson(response, new ErrorTip(BizExceptionEnum.TOKEN_ERROR.getCode(), BizExceptionEnum.TOKEN_ERROR.getMessage()));
+            return;
+        }
 
         HttpSession session = request.getSession();
-        if (session != null && session.getId() != null) {
-            String authToken = (String) session.getAttribute(session.getId());
-            if (authToken == null){
-                RenderUtil.renderJson(response, new ErrorTip(BizExceptionEnum.TOKEN_ERROR.getCode(), BizExceptionEnum.TOKEN_ERROR.getMessage()));
-                return;
-            }
+        Integer userId = (Integer) session.getAttribute(randomKey);
+        if (userId != null) {
             //验证token是否过期,包含了验证jwt是否正确
             try {
-                boolean flag = jwtTokenUtil.isTokenExpired(authToken);
+                boolean flag = jwtTokenUtil.isTokenExpired(token);
                 if (flag) {
                     RenderUtil.renderJson(response, new ErrorTip(BizExceptionEnum.TOKEN_EXPIRED.getCode(), BizExceptionEnum.TOKEN_EXPIRED.getMessage()));
                     return;
@@ -73,14 +80,13 @@ public class AuthFilter extends OncePerRequestFilter {
                 return;
             }
             //根据token获取用户信息
-            String userId = jwtTokenUtil.getUsernameFromToken(authToken);
-            if (userId != null) {
-                CurrentUser.saveUserId(userId);
+            String temp = jwtTokenUtil.getUsernameFromToken(token);
+            if (temp != null && temp.equals(String.valueOf(userId))) {
+                CurrentUser.saveUserId(temp);
                 LOGGER.info("Store userId into ThreadLocal!");
                 chain.doFilter(request, response);
             }
         } else {
-            //header没有带Bearer字段
             RenderUtil.renderJson(response, new ErrorTip(BizExceptionEnum.TOKEN_ERROR.getCode(), BizExceptionEnum.TOKEN_ERROR.getMessage()));
         }
     }

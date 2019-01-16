@@ -2,6 +2,7 @@ package cn.shuaijunlan.platformgateway.modular.user;
 
 import cn.shuaijunlan.platform.core.util.MD5Util;
 import cn.shuaijunlan.platformgateway.common.CurrentUser;
+import cn.shuaijunlan.platformgateway.config.properties.AuthProperties;
 import cn.shuaijunlan.platformgateway.modular.vo.ResponseVO;
 import cn.shuaijunlan.userservicesapi.IUserService;
 import cn.shuaijunlan.userservicesapi.vo.UserInfoModel;
@@ -9,6 +10,7 @@ import cn.shuaijunlan.userservicesapi.vo.UserModel;
 import com.alibaba.dubbo.common.utils.ConcurrentHashSet;
 import com.alibaba.dubbo.config.annotation.Reference;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,6 +27,9 @@ public class UserController {
 
     @Reference(interfaceClass = IUserService.class, check = false)
     private IUserService userService;
+
+    @Autowired
+    private AuthProperties authProperties;
 
     private static ConcurrentHashSet<Thread> concurrentHashSet = new ConcurrentHashSet<>();
 
@@ -66,7 +71,7 @@ public class UserController {
         }
     }
 
-    @RequestMapping(value = "logout", method = RequestMethod.GET)
+    @RequestMapping(value = "logout", method = RequestMethod.POST)
     public ResponseVO logout(HttpServletRequest request) {
         /*
             应用：
@@ -80,7 +85,9 @@ public class UserController {
                 1、前端删除掉JWT
          */
         HttpSession session = request.getSession();
-        session.removeAttribute(session.getId());
+        if (request.getHeader(authProperties.getKeyName()) != null){
+            session.removeAttribute(request.getHeader(authProperties.getKeyName()));
+        }
 
 
         return ResponseVO.success("用户退出成功");

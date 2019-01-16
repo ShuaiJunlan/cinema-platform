@@ -9,7 +9,7 @@ CREATE TABLE user_info_table(
    email VARCHAR(50) COMMENT '用户邮箱',
    user_phone VARCHAR(50) COMMENT '用户手机号',
    address VARCHAR(50) COMMENT '用户住址',
-   head_url VARCHAR(50) COMMENT '头像URL',
+   head_url VARCHAR(256) COMMENT '头像URL',
    biography VARCHAR(200) COMMENT '个人介绍',
    life_state INT not null default 4 COMMENT '生活状态 0-单身，1-热恋中，2-已婚，3-为人父母, 4-保密',
    begin_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
