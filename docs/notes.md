@@ -30,4 +30,6 @@
 
 - [x] [codingapi/tx-lcn](https://github.com/codingapi/tx-lcn)
 
+    > [分布式事务解决方案框架（LCN）](https://www.jianshu.com/p/73beee3c70e9)
+
 [changmingxie/tcc-transaction](https://github.com/changmingxie/tcc-transaction)
