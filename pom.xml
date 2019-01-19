@@ -31,6 +31,8 @@
         <netty.version>4.1.32.Final</netty.version>
         <jwt.version>0.9.0</jwt.version>
         <hystrix.version>1.5.18</hystrix.version>
+        <codingapi.txlcn.version>5.0.0.RC1</codingapi.txlcn.version>
+        <springcloud.version>Finchley.SR2</springcloud.version>
 
         <shiro.version>1.4.0</shiro.version>
         <fastjson.version>1.2.47</fastjson.version>
@@ -41,27 +43,26 @@
     </properties>
     <dependencyManagement>
         <dependencies>
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${springcloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- Dubbo -->
             <dependency>
                 <groupId>com.alibaba.boot</groupId>
                 <artifactId>dubbo-spring-boot-starter</artifactId>
                 <version>${springboot.dubbo.version}</version>
             </dependency>
-
-            <!-- Dubbo -->
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>dubbo</artifactId>
                 <version>${dubbo.version}</version>
             </dependency>
-
-            <!--distributed transactional start-->
-            <dependency>
-                <groupId>com.codingapi.txlcn</groupId>
-                <artifactId>tx-client-dubbo</artifactId>
-                <version>5.0.0.beta</version>
-            </dependency>
-            <!--distributed transactional end-->
-
 
             <!-- Spring Context Extras -->
             <dependency>
@@ -157,6 +158,75 @@
                 <version>${hystrix.version}</version>
             </dependency>
             <!--hystrix end-->
+
+            <!--txlcn-->
+            <dependency>
+                <groupId>com.codingapi.txlcn</groupId>
+                <artifactId>tx-client-springcloud</artifactId>
+                <version>${codingapi.txlcn.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.codingapi.txlcn</groupId>
+                <artifactId>tx-client-dubbo</artifactId>
+                <version>${codingapi.txlcn.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.codingapi.txlcn</groupId>
+                <artifactId>tx-jdbcproxy-p6spy</artifactId>
+                <version>${codingapi.txlcn.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.codingapi.txlcn</groupId>
+                <artifactId>tx-spi-sleuth-dubbo</artifactId>
+                <version>${codingapi.txlcn.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.codingapi.txlcn</groupId>
+                <artifactId>tx-client</artifactId>
+                <version>${codingapi.txlcn.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.codingapi.txlcn</groupId>
+                <artifactId>tx-spi-sleuth-springcloud</artifactId>
+                <version>${codingapi.txlcn.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.codingapi.txlcn</groupId>
+                <artifactId>tx-spi-message-netty</artifactId>
+                <version>${codingapi.txlcn.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.codingapi.txlcn</groupId>
+                <artifactId>tx-commons</artifactId>
+                <version>${codingapi.txlcn.version}</version>
+            </dependency>
+
+
+            <dependency>
+                <groupId>com.codingapi.txlcn</groupId>
+                <artifactId>tx-logger</artifactId>
+                <version>${codingapi.txlcn.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.codingapi.txlcn</groupId>
+                <artifactId>tx-spi-message</artifactId>
+                <version>${codingapi.txlcn.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.codingapi.txlcn</groupId>
+                <artifactId>tx-spi-sleuth</artifactId>
+                <version>${codingapi.txlcn.version}</version>
+            </dependency>
+            <!--txlcn end-->
 
         </dependencies>
     </dependencyManagement>
