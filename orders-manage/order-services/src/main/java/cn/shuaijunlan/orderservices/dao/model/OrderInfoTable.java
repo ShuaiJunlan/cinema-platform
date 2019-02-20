@@ -3,6 +3,7 @@ package cn.shuaijunlan.orderservices.dao.model;
 import lombok.Data;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Date;
@@ -21,7 +22,8 @@ public class OrderInfoTable implements Serializable {
      * 主键编号
      */
     @Id
-    private String uuid;
+    @GeneratedValue
+    private Integer uuid;
     /**
      * 影院编号
      */
@@ -42,10 +44,6 @@ public class OrderInfoTable implements Serializable {
      * 已售座位名称
      */
     private String seatsName;
-    /**
-     * 影片售价
-     */
-    private Double filmPrice;
     /**
      * 订单总金额
      */

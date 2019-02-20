@@ -3,6 +3,7 @@ package cn.shuaijunlan.accountservices.model;
 import lombok.Data;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.io.Serializable;
 
@@ -15,6 +16,7 @@ import java.io.Serializable;
 public class UserAccountTable implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue
     private Integer uuid;
     private Integer userId;
     private Double amount;
