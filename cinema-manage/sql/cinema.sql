@@ -178,6 +178,15 @@ INSERT INTO cinema_film_table(UUID,cinema_id,film_id,begin_time,end_time,hall_id
 	VALUES(7,6,2,'11:50','13:20',6,'5号4D厅',60);
 
 
+
+DROP TABLE IF EXISTS `cinema_film_sell_table`;
+CREATE TABLE cinema_film_sell_table(
+  UUID INT PRIMARY KEY AUTO_INCREMENT COMMENT '主键编号',
+  cinema_film_id INT COMMENT '影片场次编号',
+  sells VARCHAR(100) COMMENT '已售座位编号'
+)COMMENT '放映场次卖出情况' ENGINE = INNODB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+
+
 --
 -- -- ----------------------------
 -- -- Table structure for cinema_hall_film_info_t
