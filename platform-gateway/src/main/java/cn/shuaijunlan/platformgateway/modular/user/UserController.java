@@ -10,7 +10,6 @@ import cn.shuaijunlan.userservicesapi.vo.UserModel;
 import com.alibaba.dubbo.common.utils.ConcurrentHashSet;
 import com.alibaba.dubbo.config.annotation.Reference;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,10 +27,13 @@ public class UserController {
     @Reference(interfaceClass = IUserService.class, check = false)
     private IUserService userService;
 
-    @Autowired
-    private AuthProperties authProperties;
+    private final AuthProperties authProperties;
 
     private static ConcurrentHashSet<Thread> concurrentHashSet = new ConcurrentHashSet<>();
+
+    public UserController(AuthProperties authProperties) {
+        this.authProperties = authProperties;
+    }
 
 
     @RequestMapping(value = "register", method = RequestMethod.POST)

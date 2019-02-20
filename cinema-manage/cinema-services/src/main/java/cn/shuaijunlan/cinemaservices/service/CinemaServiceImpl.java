@@ -5,7 +5,8 @@ import cn.shuaijunlan.cinemaservices.dao.repository.CinemaFilmRepository;
 import cn.shuaijunlan.cinemaservices.dao.repository.CinemaFilmSellsRepository;
 import cn.shuaijunlan.cinemaservicesapi.CinemaServiceAPI;
 import cn.shuaijunlan.cinemaservicesapi.vo.*;
-import org.springframework.stereotype.Service;
+import com.alibaba.dubbo.config.annotation.Service;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -13,7 +14,8 @@ import java.util.List;
  * @author Shuai Junlan[shuaijunlan@gmail.com].
  * @since Created in 10:24 AM 2/20/19.
  */
-@Service
+@Component
+@Service(interfaceClass = CinemaServiceAPI.class, loadbalance = "roundrobin")
 public class CinemaServiceImpl implements CinemaServiceAPI {
 
     private final CinemaFilmRepository cinemaFilmRepository;

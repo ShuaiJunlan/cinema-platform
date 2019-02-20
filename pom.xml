@@ -23,6 +23,7 @@
         <netty.version>4.1.32.Final</netty.version>
         <jwt.version>0.9.0</jwt.version>
         <hystrix.version>1.5.18</hystrix.version>
+        <fescar.version>0.2.1</fescar.version>
         <codingapi.txlcn.version>5.0.0.RC1</codingapi.txlcn.version>
         <springcloud.version>Finchley.SR2</springcloud.version>
 
@@ -231,6 +232,20 @@
                 <version>${codingapi.txlcn.version}</version>
             </dependency>
             <!--txlcn end-->
+
+            <!--fescar-->
+            <dependency>
+                <groupId>com.alibaba.fescar</groupId>
+                <artifactId>fescar-spring</artifactId>
+                <version>${fescar.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba.fescar</groupId>
+                <artifactId>fescar-dubbo-alibaba</artifactId>
+                <version>${fescar.version}</version>
+            </dependency>
+            <!--fescar end-->
 
         </dependencies>
     </dependencyManagement>

@@ -21,6 +21,23 @@
             <artifactId>order-services-api</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>cn.shuaijunlan</groupId>
+            <artifactId>cinema-services-api</artifactId>
+            <version>${parent.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.shuaijunlan</groupId>
+            <artifactId>account-services-api</artifactId>
+            <version>${parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.shuaijunlan</groupId>
+            <artifactId>user-services-api</artifactId>
+            <version>${parent.version}</version>
+        </dependency>
+
         <!--spring boot-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -59,6 +76,18 @@
             <artifactId>netty-all</artifactId>
         </dependency>
         <!--dubbo end-->
+
+        <!--fescar-->
+        <dependency>
+            <groupId>com.alibaba.fescar</groupId>
+            <artifactId>fescar-spring</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba.fescar</groupId>
+            <artifactId>fescar-dubbo-alibaba</artifactId>
+        </dependency>
+        <!--fescar end-->
 
         <dependency>
             <groupId>org.projectlombok</groupId>
