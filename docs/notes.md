@@ -24,12 +24,15 @@
 
 ### 分布式事务解决方案
 
-[liuyangming/ByteTCC](https://github.com/liuyangming/ByteTCC)
+- [ ] [liuyangming/ByteTCC](https://github.com/liuyangming/ByteTCC)
 
-[alibaba/fescar](https://github.com/alibaba/fescar)
+- [ ] [alibaba/fescar](https://github.com/alibaba/fescar)
 
 - [x] [codingapi/tx-lcn](https://github.com/codingapi/tx-lcn)
 
-    > [分布式事务解决方案框架（LCN）](https://www.jianshu.com/p/73beee3c70e9)
+    * [分布式事务解决方案框架（LCN）](https://www.jianshu.com/p/73beee3c70e9)
 
-[changmingxie/tcc-transaction](https://github.com/changmingxie/tcc-transaction)
+- [ ] [changmingxie/tcc-transaction](https://github.com/changmingxie/tcc-transaction)
+
+### 接口文档管理
+> 基于swagger

@@ -2,6 +2,7 @@ package cn.shuaijunlan.cinemaservicesapi;
 
 
 import cn.shuaijunlan.cinemaservicesapi.vo.*;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import java.util.List;
 
@@ -23,10 +24,17 @@ public interface CinemaServiceAPI {
     HallInfoVO getFilmFieldInfo(int fieldId);
     //8、根据放映场次查询播放的电影编号，然后根据电影编号获取对应的电影信息
     FilmInfoVO getFilmInfoByFieldId(int fieldId);
-
     /*
         该部分是订单模块需要的内容
      */
     OrderQueryVO getOrderNeeds(int fieldId);
+
+    /**
+     * 添加出售情况
+     * @param cinemaFilmId 影片场次id
+     * @param sells 卖出座位
+     * @return 返回是否成功
+     */
+    boolean addSells(int cinemaFilmId, String sells);
 
 }

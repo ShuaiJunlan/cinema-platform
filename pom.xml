@@ -41,6 +41,7 @@
         <module>orders-manage</module>
         <module>platform-gateway</module>
         <module>platform-core</module>
+        <module>account-manage</module>
     </modules>
 
     <dependencyManagement>
