@@ -34,16 +34,10 @@ import java.util.Map;
         basePackages= { "cn.shuaijunlan"}) //设置Repository所在位置
 public class DruidDataSourceConfig {
 
-    @Bean(name = "druidDataSource")
-    @Primary
-    @ConfigurationProperties(prefix="spring.datasource")
-    public DruidDataSource getDataSource(){
-        return new DruidDataSource();
-    }
+
 
     @Autowired
     private DataSource primaryDataSource;
-
 
     @Primary
     @Bean(name = "entityManagerPrimary")
