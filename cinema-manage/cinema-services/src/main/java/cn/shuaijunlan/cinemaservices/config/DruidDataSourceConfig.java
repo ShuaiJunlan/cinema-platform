@@ -1,8 +1,12 @@
 package cn.shuaijunlan.cinemaservices.config;
 
+import com.alibaba.druid.pool.DruidDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,63 +17,71 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityManager;
 import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.Map;
-
 /**
  * @author Shuai Junlan[shuaijunlan@gmail.com].
- * @since Created in 10:28 AM 2/21/19.
+ * @since Created in 11:15 AM 2/21/19.
  */
-// @Configuration
-// @EnableTransactionManagement
-// @EnableJpaRepositories(
-//         entityManagerFactoryRef = "billSystemEntityManagerFactoryBean",
-//         transactionManagerRef = "billSystemTransactionManager",
-//         //设置Repository所在位置
-//         basePackages = {"cn.shuaijunlan"})
+@Configuration
+@EnableTransactionManagement
+@EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class})
+@EnableJpaRepositories(
+        entityManagerFactoryRef="entityManagerFactoryPrimary",
+        transactionManagerRef="transactionManagerPrimary",
+        basePackages= { "cn.shuaijunlan"}) //设置Repository所在位置
 public class DruidDataSourceConfig {
+
+    @Bean(name = "druidDataSource")
+    @Primary
+    @ConfigurationProperties(prefix="spring.datasource")
+    public DruidDataSource getDataSource(){
+        return new DruidDataSource();
+    }
+
+    @Autowired
+    private DataSource primaryDataSource;
+
+
+    @Primary
+    @Bean(name = "entityManagerPrimary")
+    public EntityManager entityManager(EntityManagerFactoryBuilder builder) {
+        return entityManagerFactoryPrimary(builder).getObject().createEntityManager();
+    }
+
     // @Autowired
     // private JpaProperties jpaProperties;
-    //
-    // @Autowired
-    // @Qualifier("datasource")
-    // private DataSource billSystemDataSource;
-    //
-    // @Bean(name = "billSystemEntityManagerFactoryBean")
-    // @Primary
-    // public LocalContainerEntityManagerFactoryBean billSystemEntityManagerFactoryBean(EntityManagerFactoryBuilder builder){
-    //     return builder.dataSource(billSystemDataSource)
-    //             .properties(getVendorProperties(billSystemDataSource))
-    //             //设置实体类所在位置
-    //             .packages("com.ligowave.bill.domain.billsystem.entity")
-    //             .persistenceUnit("billSystemPersistenceUnit")
-    //             .build();
-    // }
-    //
-    // private Map<String,String> getVendorProperties(DataSource dataSource){
-    //     // return jpaProperties.getHibernateProperties(dataSource);
-    //     return new HashMap<>();
-    // }
-    //
-    // /**
-    //  * EntityManagerFactory类似于Hibernate的SessionFactory,mybatis的SqlSessionFactory
-    //  * 总之,在执行操作之前,我们总要获取一个EntityManager,这就类似于Hibernate的Session,
-    //  * mybatis的sqlSession.
-    //  * @param builder
-    //  * @return
-    //  */
-    // @Bean(name = "billSystemEntityManagerFactory")
-    // public EntityManagerFactory billSystemEntityManagerFactory(EntityManagerFactoryBuilder builder){
-    //     return this.billSystemEntityManagerFactoryBean(builder).getObject();
-    // }
-    //
-    // /**
-    //  * 配置事物管理器
-    //  */
-    // @Bean(name = "billSystemTransactionManager")
-    // public PlatformTransactionManager billSystemTransactionManager(EntityManagerFactoryBuilder builder){
-    //     return new JpaTransactionManager(billSystemEntityManagerFactory(builder));
-    // }
+
+    @Bean(name = "entityManagerFactoryPrimary")
+    @Primary
+    public LocalContainerEntityManagerFactoryBean entityManagerFactoryPrimary (EntityManagerFactoryBuilder builder) {
+        return builder.dataSource(primaryDataSource)
+                .packages("cn.shuaijunlan")
+                .persistenceUnit("primary")
+                .properties(buildProperties())
+                .build();
+    }
+    @Bean(name="transactionManagerPrimary")
+    @Autowired
+    public PlatformTransactionManager primaryTransactionManager(EntityManagerFactoryBuilder builder) {
+        return new JpaTransactionManager(entityManagerFactoryPrimary(builder).getObject());
+    }
+
+    @Value("${spring.jpa.hibernate.ddl-auto}")
+    private String dll;
+
+    @Value("${spring.jpa.show-sql}")
+    private String showSql;
+
+    private Map<String, Object> buildProperties() {
+        Map<String, Object> properties = new HashMap<>();
+        // properties.put("hibernate.ejb.naming_strategy", ImprovedNamingStrategy.class.getName());
+        properties.put("hibernate.physical_naming_strategy", "org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy");
+        properties.put("hibernate.hbm2ddl.auto", dll);
+        properties.put("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
+        properties.put("hibernate.show_sql", showSql);
+        return properties;
+    }
 }

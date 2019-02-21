@@ -3,23 +3,11 @@ package cn.shuaijunlan.cinemaservices.config;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.fescar.rm.datasource.DataSourceProxy;
 import com.alibaba.fescar.spring.annotation.GlobalTransactionScanner;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.jdbc.DataSourceBuilder;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
-import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
-import org.springframework.orm.jpa.JpaTransactionManager;
-import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 
-import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
-import java.util.Properties;
 
 /**
  * @author Shuai Junlan[shuaijunlan@gmail.com].
@@ -28,8 +16,8 @@ import java.util.Properties;
 @Configuration
 public class FescarConfig {
 
-    @Autowired
-    private ApplicationContext applicationContext;
+    // @Autowired
+    // private ApplicationContext applicationContext;
 
     // @Bean(name = "druidDataSource")
     // @Primary
@@ -44,12 +32,7 @@ public class FescarConfig {
     //     return DataSourceBuilder.create().build();
     // }
 
-    @Bean(name = "druidDataSource")
-    @Primary
-    @ConfigurationProperties(prefix="spring.datasource")
-    public DruidDataSource getDataSource(){
-        return new DruidDataSource();
-    }
+
 
     // /**
     //  * hibernate 适配器,定制方言为mysql,并打印sql
@@ -92,11 +75,11 @@ public class FescarConfig {
 
     /**
      * init datasource proxy
-     * @Param: druidDataSource  datasource bean instance
-     * @Return: DataSourceProxy  datasource proxy
+     * @param source  datasource bean instance
+     * @return DataSourceProxy  datasource proxy
      */
     @Bean(name = "datasourceProxy")
-    public DataSourceProxy dataSourceProxy(@Qualifier("druidDataSource") DataSource source){
+    public DataSourceProxy dataSourceProxy(DataSource source){
         return new DataSourceProxy((DruidDataSource) source);
     }
 

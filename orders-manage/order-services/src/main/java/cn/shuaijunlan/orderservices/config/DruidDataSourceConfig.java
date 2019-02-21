@@ -1,9 +1,12 @@
-package cn.shuaijunlan.cinemaservices.config;
+package cn.shuaijunlan.orderservices.config;
 
-import org.hibernate.cfg.ImprovedNamingStrategy;
+import com.alibaba.druid.pool.DruidDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,17 +21,27 @@ import javax.persistence.EntityManager;
 import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
+
 /**
  * @author Shuai Junlan[shuaijunlan@gmail.com].
  * @since Created in 11:15 AM 2/21/19.
  */
 @Configuration
 @EnableTransactionManagement
+@EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class})
 @EnableJpaRepositories(
         entityManagerFactoryRef="entityManagerFactoryPrimary",
         transactionManagerRef="transactionManagerPrimary",
         basePackages= { "cn.shuaijunlan"}) //设置Repository所在位置
-public class PrimaryConfig {
+public class DruidDataSourceConfig {
+
+    @Bean(name = "druidDataSource")
+    @Primary
+    @ConfigurationProperties(prefix="spring.datasource")
+    public DruidDataSource getDataSource(){
+        return new DruidDataSource();
+    }
 
     @Autowired
     @Qualifier("druidDataSource")
@@ -38,7 +51,7 @@ public class PrimaryConfig {
     @Primary
     @Bean(name = "entityManagerPrimary")
     public EntityManager entityManager(EntityManagerFactoryBuilder builder) {
-        return entityManagerFactoryPrimary(builder).getObject().createEntityManager();
+        return Objects.requireNonNull(entityManagerFactoryPrimary(builder).getObject()).createEntityManager();
     }
 
     // @Autowired
@@ -59,19 +72,18 @@ public class PrimaryConfig {
         return new JpaTransactionManager(entityManagerFactoryPrimary(builder).getObject());
     }
 
-    // 公共jpa设置
     @Value("${spring.jpa.hibernate.ddl-auto}")
     private String dll;
-    // @Value("${spring.jpa.properties.hibernate.dialect}")
-    // String dialect;
+
     @Value("${spring.jpa.show-sql}")
     private String showSql;
 
     private Map<String, Object> buildProperties() {
         Map<String, Object> properties = new HashMap<>();
-        properties.put("hibernate.ejb.naming_strategy", ImprovedNamingStrategy.class.getName());
+        // properties.put("hibernate.ejb.naming_strategy", ImprovedNamingStrategy.class.getName());
+        properties.put("hibernate.physical_naming_strategy", "org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy");
         properties.put("hibernate.hbm2ddl.auto", dll);
-        properties.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
+        properties.put("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
         properties.put("hibernate.show_sql", showSql);
         return properties;
     }
