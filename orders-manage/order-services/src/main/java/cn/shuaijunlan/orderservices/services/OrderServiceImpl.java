@@ -8,7 +8,6 @@ import cn.shuaijunlan.orderservicesapi.OrderServiceAPI;
 import cn.shuaijunlan.orderservicesapi.vo.OrderVO;
 import cn.shuaijunlan.userservicesapi.IUserService;
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.alibaba.dubbo.config.annotation.Service;
 import com.alibaba.fescar.spring.annotation.GlobalTransactional;
 import org.springframework.stereotype.Component;
 
