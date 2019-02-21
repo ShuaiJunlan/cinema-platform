@@ -11,7 +11,8 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: validate
-
+      naming:
+        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
 
 # Dubbo Config properties
 dubbo:

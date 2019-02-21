@@ -40,3 +40,11 @@
 ### spring boot data jpa
 #### 如何替换默认的数据源？
 #### 如何配置多数据源？
+#### hibernate框架属性配置？
+* [Hibernate5中实体映射命名策略](https://blog.csdn.net/J080624/article/details/84790421)
+
+
+### spring boot学习笔记
+#### spring boot自动装配原理？
+* [SpringBoot自动装配原理分析](https://blog.csdn.net/Dongguabai/article/details/80865599)
+* [Spring Boot自动配置（Auto-Configuration），@EnableAutoConfiguration，Spring Beans和依赖注入](https://blog.csdn.net/zyhlwzy/article/details/78744201)
