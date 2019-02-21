@@ -76,7 +76,10 @@ public class OrderServiceImpl implements OrderServiceAPI {
     public OrderVO createOrder(Integer cinemaId, Integer fieldId, Integer filmId, String soldSeats, String seatsName, Integer userId, Double totalPrice) {
         //减库存
         cinemaServiceAPI.addSells(fieldId, soldSeats);
-        int i = 1 / 0;
+
+        // if (true){
+        //     throw new RuntimeException();
+        // }
 
         //创建订单
         return saveOrderInfo(cinemaId, fieldId, filmId, soldSeats, seatsName, userId, totalPrice);

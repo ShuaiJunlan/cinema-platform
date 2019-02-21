@@ -18,8 +18,8 @@ import java.util.List;
 @Service(interfaceClass = CinemaServiceAPI.class, loadbalance = "roundrobin")
 public class CinemaServiceImpl implements CinemaServiceAPI {
 
-    private final CinemaFilmRepository cinemaFilmRepository;
-    private final CinemaFilmSellsRepository cinemaFilmSellsRepository;
+    private CinemaFilmRepository cinemaFilmRepository;
+    private CinemaFilmSellsRepository cinemaFilmSellsRepository;
 
     public CinemaServiceImpl(CinemaFilmRepository cinemaFilmRepository, CinemaFilmSellsRepository cinemaFilmSellsRepository) {
         this.cinemaFilmRepository = cinemaFilmRepository;
