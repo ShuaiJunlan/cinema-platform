@@ -36,15 +36,9 @@ import java.util.Objects;
         basePackages= { "cn.shuaijunlan"}) //设置Repository所在位置
 public class DruidDataSourceConfig {
 
-    @Bean(name = "druidDataSource")
-    @Primary
-    @ConfigurationProperties(prefix="spring.datasource")
-    public DruidDataSource getDataSource(){
-        return new DruidDataSource();
-    }
+
 
     @Autowired
-    @Qualifier("druidDataSource")
     private DataSource primaryDataSource;
 
 

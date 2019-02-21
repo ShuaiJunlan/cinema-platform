@@ -77,9 +77,9 @@ public class OrderServiceImpl implements OrderServiceAPI {
         //减库存
         cinemaServiceAPI.addSells(fieldId, soldSeats);
 
-        if (true){
-            throw new RuntimeException();
-        }
+        // if (true){
+        //     throw new RuntimeException();
+        // }
 
         //创建订单
         return saveOrderInfo(cinemaId, fieldId, filmId, soldSeats, seatsName, userId, totalPrice);
