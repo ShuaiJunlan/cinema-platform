@@ -34,6 +34,17 @@
 
 - [ ] [changmingxie/tcc-transaction](https://github.com/changmingxie/tcc-transaction)
 
+### 分布式环境下，对数据库执行更新操作，如何保证安全
+* 乐观锁和悲观锁
+* [spring data jpa mysql 乐观锁 与 AtomicInteger](https://blog.csdn.net/silyvin/article/details/75078694)
+* [浅析项目中的并发](https://www.cnkirito.moe/concurrent-in-project/)
+* [浅析项目中的并发](https://blog.csdn.net/qq315737546/article/details/76850173)
+* [浅谈库存扣减和锁](https://blog.csdn.net/qq315737546/article/details/76850173)
+#### 事物的隔离级别
+#### 事物的传播机制
+
+### 下订单逻辑
+[高并发下的订单与库存的处理](https://blog.csdn.net/linzhiqiang0316/article/details/83279978)
 ### 接口文档管理
 > 基于swagger
 
