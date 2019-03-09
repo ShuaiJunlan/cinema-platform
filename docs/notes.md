@@ -61,3 +61,6 @@
 ### 项目问题总结
 * @`Transactional`方法添加`synchronize`关键字，仍然线程不安全
 ### 如何排查一个远程过程调用没有响应？
+
+### 熔断降级（hystrix）
+* [Hystrix技术解析](https://www.jianshu.com/p/3e11ac385c73)
