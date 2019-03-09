@@ -14,8 +14,6 @@ import java.util.Map.Entry;
 /**
  * 字符串工具类
  * 
- * @author xiaoleilu
- *
  */
 public class StrKit {
 

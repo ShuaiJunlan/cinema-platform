@@ -5,7 +5,7 @@ import com.alibaba.druid.pool.DruidDataSource;
 /**
  * 默认多数据源配置
  *
- * @author fengshuonan
+ *
  * @date 2017-08-16 10:02
  */
 public class MutiDataSourceProperties {

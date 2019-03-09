@@ -12,7 +12,6 @@ import java.util.Map.Entry;
 /**
  * Bean工具类
  *
- * @author Looly
  */
 public class BeanKit {
 
@@ -398,7 +397,6 @@ public class BeanKit {
      * 继承或匿名实例化此接口<br>
      * 在Bean注入过程中，Bean获得字段名，通过外部方式根据这个字段名查找相应的字段值，然后注入Bean<br>
      *
-     * @author Looly
      */
     public static interface ValueProvider {
         /**
@@ -417,7 +415,6 @@ public class BeanKit {
      * 2、是否忽略空值，当源对象的值为null时，true: 忽略而不注入此值，false: 注入null<br>
      * 3、忽略的属性列表，设置一个属性列表，不拷贝这些属性值<br>
      *
-     * @author Looly
      */
     public static class CopyOptions {
         /**

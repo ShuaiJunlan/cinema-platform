@@ -22,16 +22,14 @@
 #### 熔断降级
 * https://blog.csdn.net/shilu89757/article/details/79363295
 
-### 分布式事务解决方案
+### 分布式事务解决方案s
 
 - [ ] [liuyangming/ByteTCC](https://github.com/liuyangming/ByteTCC)
-
-- [ ] [alibaba/fescar](https://github.com/alibaba/fescar)
-
-- [x] [codingapi/tx-lcn](https://github.com/codingapi/tx-lcn)
+- [x] [alibaba/fescar](https://github.com/alibaba/fescar)
+    * [详细解读 Github 上发布仅一个月就获得4k+ star 的分布式事务解决方案](https://mp.weixin.qq.com/s?__biz=MzIxMzEzMjM5NQ==&mid=2651031492&idx=1&sn=0928f5f0c5c136f6f968d33595c8cecd&chksm=8c4c52c0bb3bdbd6d1c450337d31e6e2dd41fab615585f899a37136e70b336bd8c461aef5a2f&mpshare=1&scene=1&srcid=#rd)
+- [ ] [codingapi/tx-lcn](https://github.com/codingapi/tx-lcn)
 
     * [分布式事务解决方案框架（LCN）](https://www.jianshu.com/p/73beee3c70e9)
-
 - [ ] [changmingxie/tcc-transaction](https://github.com/changmingxie/tcc-transaction)
 
 ### 分布式环境下，对数据库执行更新操作，如何保证安全
@@ -59,3 +57,7 @@
 #### spring boot自动装配原理？
 * [SpringBoot自动装配原理分析](https://blog.csdn.net/Dongguabai/article/details/80865599)
 * [Spring Boot自动配置（Auto-Configuration），@EnableAutoConfiguration，Spring Beans和依赖注入](https://blog.csdn.net/zyhlwzy/article/details/78744201)
+
+### 项目问题总结
+* @`Transactional`方法添加`synchronize`关键字，仍然线程不安全
+### 如何排查一个远程过程调用没有响应？

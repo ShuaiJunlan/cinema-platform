@@ -3,8 +3,6 @@ package cn.shuaijunlan.platform.core.support;
 /**
  * 一些通用的函数
  * 
- * @author Looly
- *
  */
 public class ObjectKit {
 	/**
