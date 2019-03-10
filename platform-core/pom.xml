@@ -74,14 +74,14 @@
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <!--reference https://hbxflihua.iteye.com/blog/2431537-->
-                    <classifier>exec</classifier>
-                </configuration>
-            </plugin>
+            <!--<plugin>-->
+            <!--    <groupId>org.springframework.boot</groupId>-->
+            <!--    <artifactId>spring-boot-maven-plugin</artifactId>-->
+            <!--    <configuration>-->
+            <!--        &lt;!&ndash;reference https://hbxflihua.iteye.com/blog/2431537&ndash;&gt;-->
+            <!--        <classifier>exec</classifier>-->
+            <!--    </configuration>-->
+            <!--</plugin>-->
         </plugins>
     </build>
 

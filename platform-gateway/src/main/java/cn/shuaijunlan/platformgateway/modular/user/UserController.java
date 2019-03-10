@@ -2,6 +2,7 @@ package cn.shuaijunlan.platformgateway.modular.user;
 
 import cn.shuaijunlan.platform.core.util.MD5Util;
 import cn.shuaijunlan.platformgateway.common.CurrentUser;
+import cn.shuaijunlan.platformgateway.config.properties.AuthProperties;
 import cn.shuaijunlan.platformgateway.modular.vo.ResponseVO;
 import cn.shuaijunlan.userservicesapi.IUserService;
 import cn.shuaijunlan.userservicesapi.vo.UserInfoModel;
@@ -26,7 +27,13 @@ public class UserController {
     @Reference(interfaceClass = IUserService.class, check = false)
     private IUserService userService;
 
+    private final AuthProperties authProperties;
+
     private static ConcurrentHashSet<Thread> concurrentHashSet = new ConcurrentHashSet<>();
+
+    public UserController(AuthProperties authProperties) {
+        this.authProperties = authProperties;
+    }
 
 
     @RequestMapping(value = "register", method = RequestMethod.POST)
@@ -66,7 +73,7 @@ public class UserController {
         }
     }
 
-    @RequestMapping(value = "logout", method = RequestMethod.GET)
+    @RequestMapping(value = "logout", method = RequestMethod.POST)
     public ResponseVO logout(HttpServletRequest request) {
         /*
             应用：
@@ -80,7 +87,9 @@ public class UserController {
                 1、前端删除掉JWT
          */
         HttpSession session = request.getSession();
-        session.removeAttribute(session.getId());
+        if (request.getHeader(authProperties.getKeyName()) != null){
+            session.removeAttribute(request.getHeader(authProperties.getKeyName()));
+        }
 
 
         return ResponseVO.success("用户退出成功");

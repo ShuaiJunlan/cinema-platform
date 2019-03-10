@@ -9,15 +9,14 @@ import com.alibaba.dubbo.config.annotation.Reference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * 请求验证的
+ *
+ * 登录验证
  *
  * @author Shuai Junlan[shuaijunlan@gmail.com].
  * @since Created in 10:06 PM 1/3/19.
@@ -38,28 +37,27 @@ public class AuthController {
     }
 
     @RequestMapping(value = "${jwt.auth-path}", method = {RequestMethod.POST, RequestMethod.GET})
-    // public ResponseVO createAuthenticationToken(@RequestBody AuthRequest authRequest, HttpServletRequest request) {
-    public ResponseVO createAuthenticationToken(AuthRequest authRequest, HttpServletRequest request) {
+    public ResponseVO createAuthenticationToken(@RequestBody AuthRequest authRequest, HttpServletRequest request) {
 
-        // 去掉guns自身携带的用户名密码验证机制，使用我们自己的
         int userId = IUserService.login(authRequest.getUsername(), authRequest.getPassword());
 
         HttpSession session = request.getSession();
         boolean validate = (userId > 0);
+        final String randomKey = jwtTokenUtil.getRandomKey();
+
 
         if (validate) {
 
             // randomKey和token已经生成完毕
-            final String randomKey = jwtTokenUtil.getRandomKey();
             final String token = jwtTokenUtil.generateToken("" + userId, randomKey);
 
-            LOGGER.info("Login successfully and session id is: " + session.getId());
-            session.setAttribute(session.getId(), token);
+            LOGGER.info("Login successfully and randomKey id is: {}.", randomKey);
+            session.setAttribute(randomKey, userId);
 
             // 返回值
             return ResponseVO.success(new AuthResponse(token, randomKey));
         } else {
-            session.removeAttribute(session.getId());
+            session.removeAttribute(randomKey);
             return ResponseVO.serviceFail("用户名或密码错误");
         }
     }

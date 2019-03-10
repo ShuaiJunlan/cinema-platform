@@ -1,6 +1,6 @@
 spring:
   application:
-    name: user-manage-userservices
+    name: user-manage-services
   datasource:
     url: jdbc:mysql://218.199.102.33:3307/test?autoReconnect=true&useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
     username: root
@@ -14,11 +14,11 @@ spring:
 # Dubbo Config properties
 dubbo:
   application:
-    id: user-manage-user
-    name: user-manage-user
+    id: user-manage-services
+    name: user-manage-services
     qos-enable: false
   protocol:
     name: dubbo
-    port: 20881
+    port: 20885
   registry:
     address: zookeeper://218.199.102.33:2181

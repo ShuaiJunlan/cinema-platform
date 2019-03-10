@@ -19,7 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
  *  rollbackFor: https://blog.csdn.net/Cary_1029/article/details/84945166
  */
 @Repository
-// @TxTransaction
 public interface UserRepository extends JpaRepository<UserInfoTable, Integer> {
 
     /**
@@ -50,7 +49,7 @@ public interface UserRepository extends JpaRepository<UserInfoTable, Integer> {
     @Query("update UserInfoTable ui set " +
             "ui.userName=:userName, ui.nickName=:nickName, ui.email=:email, ui.userPhone=:phone, " +
             "ui.userSex=:userSex, ui.birthday=:birthday, ui.lifeState=:lifeState, ui.biography=:biography, ui.address=:address, ui.headUrl=:headAddress " +
-            "where ui.uuid = :uuid")
+            "where ui.uuid=:uuid")
     int updateUserInfo(
             @Param("uuid") int uuid,
             @Param("userName") String userName,
