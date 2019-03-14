@@ -87,6 +87,11 @@
             <groupId>com.alibaba.fescar</groupId>
             <artifactId>fescar-dubbo-alibaba</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+        </dependency>
         <!--fescar end-->
 
         <dependency>
