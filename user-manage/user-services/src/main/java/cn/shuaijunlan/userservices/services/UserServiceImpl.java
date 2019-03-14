@@ -29,21 +29,21 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public boolean register(UserModel userModel) {
-        // 将注册信息实体转换为数据实体[user_info]
+        if (userRepository.findUserTableModelByUserName(userModel.getUsername()) != null){
+            return false;
+        }
+        // 将注册信息实体转换为数据实体[user_info_table]
         UserInfoTable userTModel = new UserInfoTable();
         userTModel.setUserName(userModel.getUsername());
         userTModel.setEmail(userModel.getEmail());
         userTModel.setAddress(userModel.getAddress());
         userTModel.setUserPhone(userModel.getPhone());
-        // 创建时间和修改时间 -> current_timestamp
-
         userTModel.setUserPwd(userModel.getPassword());
 
         // 将数据实体存入数据库
         UserInfoTable insert = userRepository.save(userTModel);
         return insert != null;
     }
-
 
     @Override
     public int login(String username, String password) {
@@ -57,7 +57,7 @@ public class UserServiceImpl implements IUserService {
                 return result.getUuid();
             }
         }
-        return 0;
+        return -1;
     }
 
     @Override
