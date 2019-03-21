@@ -5,7 +5,14 @@ Achieving a `cinema-platform system` which basing on microservice architecture, 
 
 ### Modules
 
+* user-manage module
+* cinema-manage module
+* film-manage module
+* order-manage module
+* account-manage module
+
 ### Architecture
+![](https://github.com/ShuaiJunlan/cinema-platform/blob/master/docs/images/architecture.png?raw=true)
 
 ### Dependencies
 
