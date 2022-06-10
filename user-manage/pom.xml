@@ -35,7 +35,7 @@
         <lombok.version>1.18.4</lombok.version>
         <slf4j.version>1.7.25</slf4j.version>
 
-        <dubbo.version>2.6.5</dubbo.version>
+        <dubbo.version>2.6.12</dubbo.version>
         <springboot.dubbo.version>0.2.0</springboot.dubbo.version>
         <spring.context.support.version>1.0.2</spring.context.support.version>
     </properties>
